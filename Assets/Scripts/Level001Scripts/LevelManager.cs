@@ -33,11 +33,7 @@ namespace Assets.Scripts.Level001Scripts
 
                 Debug.Log(levelInstructionStrategy.GetLogMessage());
 
-                if (!await levelInstructionStrategy.ExecuteInstruction(instruction))
-                {
-                    Debug.LogError("Try again");
-                    return;
-                }
+                await levelInstructionStrategy.ExecuteInstruction(instruction);
             }
 
             if (GetComponent<VictoryChecker>().IsVictoryAchieved())

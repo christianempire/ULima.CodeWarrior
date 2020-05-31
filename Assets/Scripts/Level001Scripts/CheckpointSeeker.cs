@@ -28,7 +28,7 @@ namespace Assets.Scripts.Level001Scripts
         private PixelPerfectCamera pixelPerfectCamera;
         private new Rigidbody2D rigidbody2D;
         private List<ISeekerDirectionStrategy> seekerDirectionStrategies;
-        private Vector2? seekingCheckpointPosition;
+        private Vector2 seekingCheckpointPosition;
         private SpriteRenderer spriteRenderer;
         #endregion
 
@@ -58,14 +58,15 @@ namespace Assets.Scripts.Level001Scripts
                 transform.position = pixelPerfectCamera.RoundToPixel(transform.position);
         }
 
-        public async Task<bool> BeginSeekingCheckpointAsync(SeekerDirection direction)
+        public async Task BeginSeekingCheckpointAsync(SeekerDirection direction)
         {
+            var oldSeekingCheckpointPosition = seekingCheckpointPosition;
             var newSeekingCheckpointPosition = seekerDirectionStrategies
                 .First(strategy => strategy.IsApplicable(direction))
-                .GetClosestCheckpointPosition(seekingCheckpointPosition.Value, checkpointPositions);
+                .GetClosestCheckpointPosition(seekingCheckpointPosition, checkpointPositions);
 
             if (!newSeekingCheckpointPosition.HasValue)
-                return false;
+                return;
 
             seekingCheckpointPosition = newSeekingCheckpointPosition.Value;
 
@@ -73,14 +74,16 @@ namespace Assets.Scripts.Level001Scripts
             var aproxTimeToReachCheckpoint = Mathf.CeilToInt(distanceToCheckpoint * 2 / Speed);
             var seekingStartingTime = Time.time;
 
-            await new WaitUntil(() =>
+            await new WaitUntil(() => IsInCheckpointPosition() || HasTakenTooLongToReachCheckpoint());
+
+            if (!IsInCheckpointPosition())
             {
-                return IsInCheckpointPosition() || HasTakenTooLongToReachCheckpoint();
+                seekingCheckpointPosition = oldSeekingCheckpointPosition;
 
-                bool HasTakenTooLongToReachCheckpoint() => Time.time - seekingStartingTime >= aproxTimeToReachCheckpoint;
-            });
+                await new WaitUntil(() => IsInCheckpointPosition());
+            }
 
-            return IsInCheckpointPosition();
+            bool HasTakenTooLongToReachCheckpoint() => Time.time - seekingStartingTime >= aproxTimeToReachCheckpoint;
         }
 
         public Vector2 GetCurrentPosition() => new Vector2(transform.position.x, transform.position.y) - PositionOffset;
@@ -95,11 +98,10 @@ namespace Assets.Scripts.Level001Scripts
                     DistanceToPosition = Vector3.Distance(transform.position, position)
                 })
                 .OrderBy(positionInfo => positionInfo.DistanceToPosition)
-                .FirstOrDefault()?
+                .First()
                 .Position;
 
-            if (seekingCheckpointPosition.HasValue)
-                transform.position = seekingCheckpointPosition.Value + PositionOffset;
+            transform.position = seekingCheckpointPosition + PositionOffset;
         }
 
         private void Idle()
@@ -121,7 +123,7 @@ namespace Assets.Scripts.Level001Scripts
             {
                 var localPlace = new Vector3Int(position.x, position.y, position.z);
                 var place = CheckpointsTilemap.CellToWorld(localPlace);
-                
+
                 if (CheckpointsTilemap.HasTile(localPlace))
                     checkpointPositions.Add(place);
             }
@@ -138,12 +140,19 @@ namespace Assets.Scripts.Level001Scripts
             };
         }
 
-        private bool IsInCheckpointPosition() => seekingCheckpointPosition.HasValue ? GetCurrentPosition() == seekingCheckpointPosition.Value : true;
-            
+        private bool IsInCheckpointPosition() => GetCurrentPosition() == seekingCheckpointPosition;
+
         private void SeekCheckpointPosition()
         {
-            var currentPosition = new Vector2(transform.position.x, transform.position.y) - PositionOffset;
-            var velocity = (seekingCheckpointPosition.Value - currentPosition).normalized * Speed;
+            const float checkpointPositionThreshold = 0.05f;
+
+            if (Vector2.Distance(GetCurrentPosition(), seekingCheckpointPosition) <= checkpointPositionThreshold)
+            {
+                transform.position = seekingCheckpointPosition + PositionOffset;
+                return;
+            }
+
+            var velocity = (seekingCheckpointPosition - GetCurrentPosition()).normalized * Speed;
 
             animator.SetInteger("WalkX", velocity.x < -0.25f ? -1 : velocity.x > 0.25f ? 1 : 0);
             animator.SetInteger("WalkY", velocity.y < -0.25f ? 1 : velocity.y > 0.25f ? -1 : 0);

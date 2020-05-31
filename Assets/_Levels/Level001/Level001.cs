@@ -8,6 +8,7 @@ namespace Assets._Levels.Level001
         {
             // Begin writing your code here!
             Hero.MoveRight();
+            Hero.MoveRight();
             Hero.MoveDown();
             Hero.MoveRight();
         }

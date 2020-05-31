@@ -14,7 +14,7 @@ namespace Assets.Scripts.Level001Scripts.LevelInstructionStrategies
             this.checkpointSeeker = checkpointSeeker;
         }
 
-        public async Task<bool> ExecuteInstruction(string instruction) => await checkpointSeeker.BeginSeekingCheckpointAsync(SeekerDirection.Left);
+        public async Task ExecuteInstruction(string instruction) => await checkpointSeeker.BeginSeekingCheckpointAsync(SeekerDirection.Left);
 
         public string GetLogMessage() => "Going left";
 
