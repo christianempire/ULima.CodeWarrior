@@ -2,13 +2,13 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Level001Scripts.SeekerDirectionStrategies
+namespace Assets.Scripts.SharedLevelScripts.SeekerDirectionStrategies
 {
-    public class UpSeekerDirectionStrategy : ISeekerDirectionStrategy
+    public class DownSeekerDirectionStrategy : ISeekerDirectionStrategy
     {
         public Vector2? GetClosestCheckpointPosition(Vector2 currentCheckpointPosition, List<Vector2> checkpointPositions) =>
             checkpointPositions
-                .Where(position => position != currentCheckpointPosition && position.x == currentCheckpointPosition.x && position.y > currentCheckpointPosition.y)
+                .Where(position => position != currentCheckpointPosition && position.x == currentCheckpointPosition.x && position.y < currentCheckpointPosition.y)
                 .Select(position => new
                 {
                     Position = position,
@@ -18,6 +18,6 @@ namespace Assets.Scripts.Level001Scripts.SeekerDirectionStrategies
                 .FirstOrDefault()?
                 .Position;
 
-        public bool IsApplicable(SeekerDirection direction) => direction == SeekerDirection.Up;
+        public bool IsApplicable(SeekerDirection direction) => direction == SeekerDirection.Down;
     }
 }

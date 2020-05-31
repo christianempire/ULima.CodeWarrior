@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Level001Scripts.SeekerDirectionStrategies;
+﻿using Assets.Scripts.SharedLevelScripts.SeekerDirectionStrategies;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Level001Scripts.LevelInstructionStrategies
+namespace Assets.Scripts.SharedLevelScripts.LevelInstructionStrategies
 {
     public class HeroMoveUpLevelInstructionStrategy : ILevelInstructionStrategy
     {

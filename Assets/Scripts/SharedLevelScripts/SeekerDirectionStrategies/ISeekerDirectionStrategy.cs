@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Level001Scripts.SeekerDirectionStrategies
+namespace Assets.Scripts.SharedLevelScripts.SeekerDirectionStrategies
 {
     public interface ISeekerDirectionStrategy
     {

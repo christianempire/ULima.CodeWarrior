@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.SharedLevelScripts.LevelInstructionStrategies;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Level001Scripts.InstructionWriters
+namespace Assets.Scripts.Level002Scripts.InstructionWriters
 {
     public class Hero
     {

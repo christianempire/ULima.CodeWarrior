@@ -1,11 +1,12 @@
-﻿using RPGM.Core;
+﻿using Assets.Scripts.SharedLevelScripts;
+using RPGM.Core;
 using RPGM.Gameplay;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Assets.Scripts.Level001Scripts
 {
-    public class VictoryChecker : MonoBehaviour
+    public class Level001VictoryChecker : VictoryChecker
     {
         public Tilemap CheckpointsTilemap;
         public CheckpointSeeker CheckpointSeeker;
@@ -22,7 +23,7 @@ namespace Assets.Scripts.Level001Scripts
             LocateVictoryCheckpointPosition();
         }
 
-        public bool IsVictoryAchieved()
+        public override bool IsVictoryAchieved()
         {
             return IsAppleCollected() && IsVictoryCheckpointReached();
 

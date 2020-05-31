@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Level001Scripts.SeekerDirectionStrategies;
+﻿using Assets.Scripts.SharedLevelScripts.SeekerDirectionStrategies;
 using Asyncoroutine;
 using RPGM.Gameplay;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.U2D;
 
-namespace Assets.Scripts.Level001Scripts
+namespace Assets.Scripts.SharedLevelScripts
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody2D))]

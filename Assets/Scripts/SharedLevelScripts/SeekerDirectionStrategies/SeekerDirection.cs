@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Level001Scripts.SeekerDirectionStrategies
+﻿namespace Assets.Scripts.SharedLevelScripts.SeekerDirectionStrategies
 {
     public enum SeekerDirection
     {

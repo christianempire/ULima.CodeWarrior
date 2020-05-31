@@ -1,13 +1,12 @@
-﻿using Assets._Levels.Level001;
-using Assets.Scripts.Level001Scripts.InstructionWriters;
-using Assets.Scripts.Level001Scripts.LevelInstructionStrategies;
+﻿using Assets.Scripts.SharedLevelScripts.LevelInstructionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Level001Scripts
+namespace Assets.Scripts.SharedLevelScripts
 {
+    [RequireComponent(typeof(LevelInstructionCompiler))]
     [RequireComponent(typeof(VictoryChecker))]
     public class LevelManager : MonoBehaviour
     {
@@ -45,13 +44,7 @@ namespace Assets.Scripts.Level001Scripts
         #region Helpers
         private void InitializeInstructions()
         {
-            instructions = new Queue<string>();
-            var level = new Level001
-            {
-                Hero = new Hero(instructions)
-            };
-
-            level.Main();
+            instructions = GetComponent<LevelInstructionCompiler>().GetInstructions();
         }
 
         private void InitializeLevelInstructionStrategies()

@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Level001Scripts
 {
-    public class Level
+    public class Level001Base
     {
         public Hero Hero { get; set; }
     }

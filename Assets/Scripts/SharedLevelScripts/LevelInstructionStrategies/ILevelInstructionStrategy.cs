@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Assets.Scripts.Level001Scripts.LevelInstructionStrategies
+namespace Assets.Scripts.SharedLevelScripts.LevelInstructionStrategies
 {
     public interface ILevelInstructionStrategy
     {
