@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Level001Scripts.InstructionWritters;
+﻿using Assets.Scripts.Level001Scripts.InstructionWriters;
 
 namespace Assets.Scripts.Level001Scripts
 {

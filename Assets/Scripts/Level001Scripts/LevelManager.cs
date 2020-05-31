@@ -1,5 +1,5 @@
 ﻿using Assets._Levels.Level001;
-using Assets.Scripts.Level001Scripts.InstructionWritters;
+using Assets.Scripts.Level001Scripts.InstructionWriters;
 using Assets.Scripts.Level001Scripts.LevelInstructionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Level001Scripts
 {
+    [RequireComponent(typeof(VictoryChecker))]
     public class LevelManager : MonoBehaviour
     {
         public CheckpointSeeker CheckpointSeeker;
-        public VictoryChecker VictoryChecker;
 
         #region Properties
         private Queue<string> instructions;
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Level001Scripts
                 }
             }
 
-            if (VictoryChecker.IsVictoryAchieved())
+            if (GetComponent<VictoryChecker>().IsVictoryAchieved())
                 Debug.Log("Victory!");
             else
                 Debug.LogError("Try again");

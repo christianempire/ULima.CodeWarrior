@@ -71,8 +71,14 @@ namespace Assets.Scripts.Level001Scripts
 
             var distanceToCheckpoint = Vector2.Distance(GetCurrentPosition(), newSeekingCheckpointPosition.Value);
             var aproxTimeToReachCheckpoint = Mathf.CeilToInt(distanceToCheckpoint * 2 / Speed);
+            var seekingStartingTime = Time.time;
 
-            await new WaitForSeconds(aproxTimeToReachCheckpoint);
+            await new WaitUntil(() =>
+            {
+                return IsInCheckpointPosition() || HasTakenTooLongToReachCheckpoint();
+
+                bool HasTakenTooLongToReachCheckpoint() => Time.time - seekingStartingTime >= aproxTimeToReachCheckpoint;
+            });
 
             return IsInCheckpointPosition();
         }
