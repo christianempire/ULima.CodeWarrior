@@ -6,7 +6,7 @@ namespace Assets._Levels.Level002
     {
         public void Main()
         {
-            // Begin writing your code here!
+            // Grab all the apples using your movement commands.
             Hero.MoveRight();
             Hero.MoveDown();
             Hero.MoveUp();

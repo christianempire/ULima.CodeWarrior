@@ -6,7 +6,8 @@ namespace Assets._Levels.Level001
     {
         public void Main()
         {
-            // Begin writing your code here!
+            // Move towards the apple
+            // Type your code below and click Play when you're done.
             Hero.MoveRight();
             Hero.MoveDown();
             Hero.MoveRight();
