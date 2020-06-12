@@ -3567,7 +3567,7 @@ Tilemap:
       - {fileID: 21300000, guid: f7358eddbaf4a664bb9c96a9b327c1eb, type: 3}
       - {fileID: 21300000, guid: 8c07dda2aff21e040ba19d27f32bd86d, type: 3}
       - {fileID: 21300000, guid: fa3b55d421cb9584498dec7d7e6093bd, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -4, y: 2, z: 0}
@@ -4929,24 +4929,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1070792088882108921}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &916300023 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6859989011032864968, guid: 883921f023f208948bbfeedcffa0b579,
-    type: 3}
-  m_PrefabInstance: {fileID: 1070792088882108921}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 916300022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ba53597fd1acd4d9387a4a50bb27f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &916300025 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1070792088981841313, guid: 883921f023f208948bbfeedcffa0b579,
-    type: 3}
-  m_PrefabInstance: {fileID: 1070792088882108921}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &916300028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1070792088981841314, guid: 883921f023f208948bbfeedcffa0b579,
@@ -6077,8 +6059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ab643898c517146b94cef4e06ddeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckpointSeeker: {fileID: 916300023}
-  HeroAnimator: {fileID: 916300025}
+  Hero: {fileID: 916300022}
 --- !u!114 &1514107113
 MonoBehaviour:
   m_ObjectHideFlags: 0

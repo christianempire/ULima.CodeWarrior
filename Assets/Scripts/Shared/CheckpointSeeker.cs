@@ -143,7 +143,7 @@ namespace Assets.Scripts.Shared
             var velocity = (seekingCheckpointPosition - GetCurrentPosition()).normalized * Speed;
 
             rigidbody2D.velocity = velocity;
-            spriteRenderer.flipX = velocity.x < 0;
+            spriteRenderer.flipX = velocity.x < -0.1f;
             animator.SetBool(HeroAnimatorConstants.IsWalkingParameter, true);
         }
         #endregion

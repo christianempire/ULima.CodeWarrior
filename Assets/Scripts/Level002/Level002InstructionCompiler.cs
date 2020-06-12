@@ -1,5 +1,4 @@
-﻿using Assets._Levels.Level102;
-using Assets.Scripts.Level002.InstructionWriters;
+﻿using Assets.Scripts.Level002.InstructionWriters;
 using Assets.Scripts.Shared;
 using System.Collections.Generic;
 
@@ -10,7 +9,7 @@ namespace Assets.Scripts.Level002
         public override Queue<string> GetInstructions()
         {
             Queue<string> instructions = new Queue<string>();
-            var level = new Level102
+            var level = new _Levels.Level002.Level002
             {
                 Hero = new Hero(instructions)
             };

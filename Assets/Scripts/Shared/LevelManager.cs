@@ -3,6 +3,7 @@ using Assets.Scripts.Shared.LevelInstructionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Shared
@@ -11,8 +12,7 @@ namespace Assets.Scripts.Shared
     [RequireComponent(typeof(VictoryChecker))]
     public class LevelManager : MonoBehaviour
     {
-        public CheckpointSeeker CheckpointSeeker;
-        public Animator HeroAnimator;
+        public GameObject Hero;
 
         #region Properties
         private Queue<string> instructions;
@@ -25,7 +25,30 @@ namespace Assets.Scripts.Shared
             InitializeLevelInstructionStrategies();
 
             await new WaitForSeconds(1.0f);
+            await ExecuteInstructionsAsync();
 
+            CheckVictory();
+        }
+
+        #region Helpers
+        private void CheckVictory()
+        {
+            var heroAnimator = Hero.GetComponent<Animator>();
+
+            if (GetComponent<VictoryChecker>().IsVictoryAchieved())
+            {
+                heroAnimator.SetBool(HeroAnimatorConstants.IsWinningParameter, true);
+                Debug.Log("Victory!");
+            }
+            else
+            {
+                heroAnimator.SetBool(HeroAnimatorConstants.IsDizzyParameter, true);
+                Debug.LogError("Try again");
+            }
+        }
+
+        private async Task ExecuteInstructionsAsync()
+        {
             while (instructions.Count > 0)
             {
                 var instruction = instructions.Dequeue();
@@ -36,20 +59,8 @@ namespace Assets.Scripts.Shared
 
                 await levelInstructionStrategy.ExecuteInstruction(instruction);
             }
-
-            if (GetComponent<VictoryChecker>().IsVictoryAchieved())
-            {
-                HeroAnimator.SetBool(HeroAnimatorConstants.IsWinningParameter, true);
-                Debug.Log("Victory!");
-            }
-            else
-            {
-                HeroAnimator.SetBool(HeroAnimatorConstants.IsDizzyParameter, true);
-                Debug.LogError("Try again");
-            }
         }
 
-        #region Helpers
         private void InitializeInstructions()
         {
             instructions = GetComponent<LevelInstructionCompiler>().GetInstructions();
@@ -57,12 +68,14 @@ namespace Assets.Scripts.Shared
 
         private void InitializeLevelInstructionStrategies()
         {
+            var heroCheckpointSeeker = Hero.GetComponent<CheckpointSeeker>();
+
             levelInstructionStrategies = new List<ILevelInstructionStrategy>
             {
-                new HeroMoveDownLevelInstructionStrategy(CheckpointSeeker),
-                new HeroMoveLeftLevelInstructionStrategy(CheckpointSeeker),
-                new HeroMoveRightLevelInstructionStrategy(CheckpointSeeker),
-                new HeroMoveUpLevelInstructionStrategy(CheckpointSeeker)
+                new HeroMoveDownLevelInstructionStrategy(heroCheckpointSeeker),
+                new HeroMoveLeftLevelInstructionStrategy(heroCheckpointSeeker),
+                new HeroMoveRightLevelInstructionStrategy(heroCheckpointSeeker),
+                new HeroMoveUpLevelInstructionStrategy(heroCheckpointSeeker)
             };
         }
         #endregion

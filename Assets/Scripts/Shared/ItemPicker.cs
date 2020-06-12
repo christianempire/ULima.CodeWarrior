@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Constants;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Shared
@@ -7,33 +6,21 @@ namespace Assets.Scripts.Shared
     public class ItemPicker : MonoBehaviour
     {
         #region Properties
-        private Dictionary<string, int> itemQuantities;
+        public int ItemsCount { get; private set; }
         #endregion
-        
+
         void OnTriggerEnter2D(Collider2D collision)
         {
             if (!collision.gameObject.CompareTag(TagConstants.ItemTag))
                 return;
 
-            if (itemQuantities.ContainsKey(collision.gameObject.name))
-                itemQuantities[collision.gameObject.name]++;
-            else
-                itemQuantities[collision.gameObject.name] = 1;
-
+            ItemsCount++;
             Destroy(collision.gameObject);
         }
 
         void Start()
         {
-            itemQuantities = new Dictionary<string, int>();
-        }
-
-        public int GetPickedItemQuantity(string itemName)
-        {
-            if (itemQuantities.TryGetValue(itemName, out var itemQuantity))
-                return itemQuantity;
-            else
-                return 0;
+            ItemsCount = 0;
         }
     }
 }

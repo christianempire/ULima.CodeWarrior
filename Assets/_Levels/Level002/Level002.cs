@@ -6,11 +6,15 @@ namespace Assets._Levels.Level002
     {
         public void Main()
         {
-            // Grab all the apples using your movement commands.
+            // Grab all the potions using your movement commands.
             Hero.MoveRight();
             Hero.MoveDown();
             Hero.MoveUp();
+            Hero.MoveRight();
+            Hero.MoveLeft();
             Hero.MoveUp();
+            Hero.MoveLeft();
+            Hero.MoveRight();
             Hero.MoveRight();
         }
     }

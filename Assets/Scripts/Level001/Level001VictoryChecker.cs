@@ -11,11 +11,13 @@ namespace Assets.Scripts.Level001
         public GameObject Hero;
 
         #region Properties
+        private int totalItems;
         private Vector2 victoryCheckpointPosition;
         #endregion
 
         void Awake()
         {
+            FetchTotalItems();
             LocateVictoryCheckpointPosition();
         }
 
@@ -23,11 +25,16 @@ namespace Assets.Scripts.Level001
         {
             return HasCollectedAllItems() && IsInVictoryCheckpoint();
 
-            bool HasCollectedAllItems() => Hero.GetComponent<ItemPicker>().GetPickedItemQuantity(ItemConstants.Potion) == 1;
+            bool HasCollectedAllItems() => Hero.GetComponent<ItemPicker>().ItemsCount == totalItems;
             bool IsInVictoryCheckpoint() => Hero.GetComponent<CheckpointSeeker>().GetCurrentPosition() == victoryCheckpointPosition;
         }
 
         #region Helpers
+        private void FetchTotalItems()
+        {
+            totalItems = GameObject.FindGameObjectsWithTag(TagConstants.ItemTag).Length;
+        }
+
         private void LocateVictoryCheckpointPosition()
         {
             foreach (var position in CheckpointsTilemap.cellBounds.allPositionsWithin)

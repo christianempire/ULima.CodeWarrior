@@ -9,7 +9,7 @@ namespace Assets.Scripts.Level001
         public override Queue<string> GetInstructions()
         {
             Queue<string> instructions = new Queue<string>();
-            var level = new _Levels.Level001Old.Level001
+            var level = new _Levels.Level001.Level001
             {
                 Hero = new Hero(instructions)
             };
