@@ -1,5 +1,4 @@
-﻿using Assets._Levels.Level001Old;
-using Assets.Scripts.Level001.InstructionWriters;
+﻿using Assets.Scripts.Level001.InstructionWriters;
 using Assets.Scripts.Shared;
 using System.Collections.Generic;
 

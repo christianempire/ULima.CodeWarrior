@@ -28,7 +28,7 @@ namespace Assets.Scripts.Shared
         private SpriteRenderer spriteRenderer;
         #endregion
 
-        void Awake()
+        void Start()
         {
             animator = GetComponent<Animator>();
             rigidbody2D = GetComponent<Rigidbody2D>();

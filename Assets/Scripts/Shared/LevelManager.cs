@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Shared.LevelInstructionStrategies;
+﻿using Assets.Scripts.Constants;
+using Assets.Scripts.Shared.LevelInstructionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,14 @@ namespace Assets.Scripts.Shared
     public class LevelManager : MonoBehaviour
     {
         public CheckpointSeeker CheckpointSeeker;
+        public Animator HeroAnimator;
 
         #region Properties
         private Queue<string> instructions;
         private List<ILevelInstructionStrategy> levelInstructionStrategies;
         #endregion
 
-        async void Awake()
+        async void Start()
         {
             InitializeInstructions();
             InitializeLevelInstructionStrategies();
@@ -36,9 +38,15 @@ namespace Assets.Scripts.Shared
             }
 
             if (GetComponent<VictoryChecker>().IsVictoryAchieved())
+            {
+                HeroAnimator.SetBool(HeroAnimatorConstants.IsWinningParameter, true);
                 Debug.Log("Victory!");
+            }
             else
+            {
+                HeroAnimator.SetBool(HeroAnimatorConstants.IsDizzyParameter, true);
                 Debug.LogError("Try again");
+            }
         }
 
         #region Helpers
