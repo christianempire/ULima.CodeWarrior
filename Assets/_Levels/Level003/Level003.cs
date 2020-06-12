@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Level003Scripts;
+﻿using Assets.Scripts.Level003;
 
 namespace Assets._Levels.Level003
 {

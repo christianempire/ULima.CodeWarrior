@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Level001Scripts;
+﻿using Assets.Scripts.Level001;
 
-namespace Assets._Levels.Level001
+namespace Assets._Levels.Level001Old
 {
     public class Level001 : Level001Base
     {
