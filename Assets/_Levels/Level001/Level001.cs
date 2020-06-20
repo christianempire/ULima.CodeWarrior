@@ -2,7 +2,7 @@
 
 namespace Assets._Levels.Level001
 {
-    public class Level001 : Level001Base
+    public class Level001 : Level001Script
     {
         public void Main()
         {

@@ -2,7 +2,7 @@
 
 namespace Assets._Levels.Level002
 {
-    public class Level002 : Level002Script
+    public class Level002A : Level002Script
     {
         public void Main()
         {
@@ -10,7 +10,11 @@ namespace Assets._Levels.Level002
             Hero.MoveRight();
             Hero.MoveDown();
             Hero.MoveUp();
+            Hero.MoveRight();
+            Hero.MoveLeft();
             Hero.MoveUp();
+            Hero.MoveLeft();
+            Hero.MoveRight();
             Hero.MoveRight();
         }
     }
