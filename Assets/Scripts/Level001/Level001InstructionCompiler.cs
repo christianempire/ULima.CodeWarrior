@@ -1,10 +1,10 @@
 ﻿using Assets.Scripts.Level001.InstructionWriters;
-using Assets.Scripts.Shared;
+using Assets.Scripts.Shared.Level;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.Level001
 {
-    public class Level001InstructionCompiler : LevelInstructionCompiler
+    public class Level001InstructionCompiler : InstructionCompiler
     {
         public override Queue<string> GetInstructions()
         {

@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Shared;
-using RPGM.Core;
-using RPGM.Gameplay;
+﻿using Assets.Scripts.Constants;
+using Assets.Scripts.Shared.Hero;
+using Assets.Scripts.Shared.Level;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,40 +9,42 @@ namespace Assets.Scripts.Level003
     public class Level003VictoryChecker : VictoryChecker
     {
         public Tilemap CheckpointsTilemap;
-        public CheckpointSeeker CheckpointSeeker;
+        public GameObject Hero;
 
         #region Properties
-        private GameModel gameModel;
+        private int totalItems;
         private Vector2 victoryCheckpointPosition;
         #endregion
 
         void Awake()
         {
-            gameModel = Schedule.GetModel<GameModel>();
-
+            FetchTotalItems();
             LocateVictoryCheckpointPosition();
         }
 
         public override bool IsVictoryAchieved()
         {
-            return IsAppleCollected() && IsVictoryCheckpointReached();
+            return HasCollectedAllItems() && IsInVictoryCheckpoint();
 
-            bool IsAppleCollected() => gameModel.GetInventoryCount("Apple") == 5;
-            bool IsVictoryCheckpointReached() => CheckpointSeeker.GetCurrentPosition() == victoryCheckpointPosition;
+            bool HasCollectedAllItems() => Hero.GetComponent<ItemPicker>().ItemsCount == totalItems;
+            bool IsInVictoryCheckpoint() => Hero.GetComponent<CheckpointSeeker>().GetCurrentPosition() == victoryCheckpointPosition;
         }
 
         #region Helpers
+        private void FetchTotalItems()
+        {
+            totalItems = GameObject.FindGameObjectsWithTag(TagConstants.ItemTag).Length;
+        }
+
         private void LocateVictoryCheckpointPosition()
         {
-            const string VictoryCheckpointTileName = "Checkpoint2";
-
             foreach (var position in CheckpointsTilemap.cellBounds.allPositionsWithin)
             {
                 var localPlace = new Vector3Int(position.x, position.y, position.z);
                 var place = CheckpointsTilemap.CellToWorld(localPlace);
                 var tile = CheckpointsTilemap.GetTile(localPlace);
 
-                if (tile != null && tile.name.Equals(VictoryCheckpointTileName))
+                if (tile != null && tile.name.Equals(TileConstants.VictoryCheckpointTile))
                 {
                     victoryCheckpointPosition = place;
                     break;

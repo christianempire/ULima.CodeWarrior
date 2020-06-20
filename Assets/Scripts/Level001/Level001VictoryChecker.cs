@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Constants;
-using Assets.Scripts.Shared;
+using Assets.Scripts.Shared.Hero;
+using Assets.Scripts.Shared.Level;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

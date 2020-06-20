@@ -6,7 +6,12 @@ namespace Assets._Levels.Level003
     {
         public void Main()
         {
-            // Avoid being seen by the enemy. Collect all the apples.
+            // Avoid being seen by the enemy. Collect all the potions.
+            Hero.MoveRight();
+            Hero.MoveUp();
+            Hero.MoveRight();
+            Hero.MoveDown();
+            Hero.MoveRight();
         }
     }
 }
