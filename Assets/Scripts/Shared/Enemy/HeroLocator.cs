@@ -6,16 +6,20 @@ using UnityEngine;
 
 namespace Assets.Scripts.Shared.Enemy
 {
-    [RequireComponent(typeof(KillableEnemyActor))]
+    [RequireComponent(typeof(KillableEnemy))]
+    [RequireComponent(typeof(PositionableEntity))]
     public class HeroLocator : MonoBehaviour
     {
         public GameObject Hero;
+        public LayerMask CurrentLayerMask;
 
         #region Properties
+        private PositionableEntity heroPositionableEntity;
         private bool isHeroVisible;
-        private KillableEnemyActor killableEnemyActor;
-        private KillableHeroActor killableHeroActor;
+        private KillableEnemy killableEnemyActor;
+        private KillableHero killableHeroActor;
         private bool mustLocateHero;
+        private PositionableEntity positionableEntity;
         #endregion
 
         void Awake()
@@ -44,16 +48,20 @@ namespace Assets.Scripts.Shared.Enemy
         #region Helpers
         private void InitializeProperties()
         {
+            heroPositionableEntity = Hero.GetComponent<PositionableEntity>();
             isHeroVisible = false;
-            killableEnemyActor = GetComponent<KillableEnemyActor>();
-            killableHeroActor = Hero.GetComponent<KillableHeroActor>();
+            killableEnemyActor = GetComponent<KillableEnemy>();
+            killableHeroActor = Hero.GetComponent<KillableHero>();
             mustLocateHero = false;
+            positionableEntity = GetComponent<PositionableEntity>();
         }
 
         private void LocateHero()
         {
-            var heroDirection = Hero.transform.position - transform.position;
-            var raycastHit = Physics2D.Raycast(transform.position, heroDirection);
+            const float maxDistance = 1000.0f;
+
+            var heroDirection = heroPositionableEntity.GetColliderPosition() - positionableEntity.GetColliderPosition();
+            var raycastHit = Physics2D.Raycast(positionableEntity.GetColliderPosition(), heroDirection, maxDistance, ~CurrentLayerMask);
 
             isHeroVisible = raycastHit.collider != null && raycastHit.collider.CompareTag(TagConstants.PlayerTag);
         }

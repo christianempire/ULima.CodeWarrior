@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Shared.Hero
 {
-    public class KillableHeroActor : KillableActor
+    public class KillableHero : KillableEntity
     {
         protected override string GetAnimatorIsDeadParameter() => HeroAnimatorConstants.IsDeadParameter;
     }

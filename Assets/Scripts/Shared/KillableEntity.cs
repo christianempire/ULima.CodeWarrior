@@ -3,7 +3,7 @@
 namespace Assets.Scripts.Shared
 {
     [RequireComponent(typeof(Animator))]
-    public abstract class KillableActor : MonoBehaviour
+    public abstract class KillableEntity : MonoBehaviour
     {
         public int HitPoints = 300;
         public int MaxHitPoints = 300;

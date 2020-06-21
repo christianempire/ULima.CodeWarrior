@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Shared.Level.LevelInstructionStrategies;
+﻿using Assets.Scripts.Shared.Level.InstructionStrategies;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.Level002.InstructionWriters

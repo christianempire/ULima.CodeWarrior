@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.Shared.Enemy
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(KillableEnemyActor))]
+    [RequireComponent(typeof(KillableEnemy))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     public class HeroChaser : MonoBehaviour
@@ -16,8 +16,8 @@ namespace Assets.Scripts.Shared.Enemy
 
         #region Properties
         private Animator animator;
-        private KillableEnemyActor killableEnemyActor;
-        private KillableHeroActor killableHeroActor;
+        private KillableEnemy killableEnemyActor;
+        private KillableHero killableHeroActor;
         private bool mustChaseHero;
         private new Rigidbody2D rigidbody2D;
         private SpriteRenderer spriteRenderer;
@@ -67,8 +67,8 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableEnemyActor = GetComponent<KillableEnemyActor>();
-            killableHeroActor = Hero.GetComponent<KillableHeroActor>();
+            killableEnemyActor = GetComponent<KillableEnemy>();
+            killableHeroActor = Hero.GetComponent<KillableHero>();
             mustChaseHero = false;
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();

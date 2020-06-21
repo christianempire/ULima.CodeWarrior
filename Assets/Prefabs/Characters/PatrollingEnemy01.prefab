@@ -13,14 +13,14 @@ GameObject:
   - component: {fileID: 4689749646428003059}
   - component: {fileID: 4689749646428003060}
   - component: {fileID: 4689749646428003062}
-  - component: {fileID: 6378057870350853324}
+  - component: {fileID: 7632278525787676302}
   - component: {fileID: 8397075557148966443}
   - component: {fileID: 4697525691510184027}
   - component: {fileID: 6981440116292508822}
   - component: {fileID: 3313232341717853988}
-  - component: {fileID: 5623493634491893317}
+  - component: {fileID: 2043312506311903000}
   m_Layer: 10
-  m_Name: BasicEnemy01
+  m_Name: PatrollingEnemy01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.85}
   serializedVersion: 2
   m_Radius: 0.4
---- !u!114 &6378057870350853324
+--- !u!114 &7632278525787676302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hero: {fileID: 0}
---- !u!114 &5623493634491893317
+--- !u!114 &2043312506311903000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4689749646428003063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e4448ada0acd44cb650de5a55ecad8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ba77664baf51aa4d856a0cae3e90a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Hero: {fileID: 0}

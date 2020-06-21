@@ -2,11 +2,11 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Shared.Hero.SeekerDirectionStrategies
+namespace Assets.Scripts.Shared.Level.CheckpointDirectionStrategies
 {
-    public class DownSeekerDirectionStrategy : ISeekerDirectionStrategy
+    public class DownCheckpointDirectionStrategy : CheckpointDirectionStrategy
     {
-        public Vector2? GetClosestCheckpointPosition(Vector2 currentCheckpointPosition, List<Vector2> checkpointPositions) =>
+        public override Vector2? GetClosestCheckpointPosition(Vector2 currentCheckpointPosition, List<Vector2> checkpointPositions) =>
             checkpointPositions
                 .Where(position => position != currentCheckpointPosition && position.x == currentCheckpointPosition.x && position.y < currentCheckpointPosition.y)
                 .Select(position => new
@@ -18,6 +18,6 @@ namespace Assets.Scripts.Shared.Hero.SeekerDirectionStrategies
                 .FirstOrDefault()?
                 .Position;
 
-        public bool IsApplicable(SeekerDirection direction) => direction == SeekerDirection.Down;
+        public override bool IsApplicable(CheckpointDirection direction) => direction == CheckpointDirection.Down;
     }
 }

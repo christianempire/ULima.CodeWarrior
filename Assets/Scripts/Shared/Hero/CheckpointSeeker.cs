@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Constants;
-using Assets.Scripts.Shared.Hero.SeekerDirectionStrategies;
+using Assets.Scripts.Shared.Level.CheckpointDirectionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,8 @@ using UnityEngine.Tilemaps;
 namespace Assets.Scripts.Shared.Hero
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(KillableHeroActor))]
+    [RequireComponent(typeof(KillableHero))]
+    [RequireComponent(typeof(PositionableEntity))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     public class CheckpointSeeker : MonoBehaviour
@@ -18,20 +19,19 @@ namespace Assets.Scripts.Shared.Hero
         public Tilemap CheckpointsTilemap;
 
         #region Properties
-        private readonly Vector2 PositionOffset = new Vector2(0.5f, 1.5f);
         private const float Speed = 2.5f;
 
         private Animator animator;
         private List<Vector2> checkpointPositions;
-        private KillableHeroActor killableHeroActor;
+        private KillableHero killableHeroActor;
         private bool mustSeekCheckpointPosition;
+        private PositionableEntity positionableEntity;
         private new Rigidbody2D rigidbody2D;
-        private List<ISeekerDirectionStrategy> seekerDirectionStrategies;
         private Vector2 seekingCheckpointPosition;
         private SpriteRenderer spriteRenderer;
         #endregion
 
-        void Start()
+        void Awake()
         {
             InitializeProperties();
             FocusClosestCheckpoint();
@@ -43,10 +43,10 @@ namespace Assets.Scripts.Shared.Hero
                 SeekCheckpoint();
         }
 
-        public async Task SeekCheckpointAsync(SeekerDirection direction)
+        public async Task SeekCheckpointAsync(CheckpointDirection direction)
         {
             var oldSeekingCheckpointPosition = seekingCheckpointPosition;
-            var newSeekingCheckpointPosition = seekerDirectionStrategies
+            var newSeekingCheckpointPosition = CheckpointDirectionStrategy.GetStrategies()
                 .First(strategy => strategy.IsApplicable(direction))
                 .GetClosestCheckpointPosition(seekingCheckpointPosition, checkpointPositions);
 
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Shared.Hero
             mustSeekCheckpointPosition = true;
             seekingCheckpointPosition = newSeekingCheckpointPosition.Value;
 
-            var distanceToCheckpoint = Vector2.Distance(GetCurrentPosition(), newSeekingCheckpointPosition.Value);
+            var distanceToCheckpoint = Vector2.Distance(positionableEntity.GetPosition(), newSeekingCheckpointPosition.Value);
             var aproxTimeToReachCheckpoint = Mathf.CeilToInt(distanceToCheckpoint * 2 / Speed);
             var seekingStartingTime = Time.time;
 
@@ -76,8 +76,6 @@ namespace Assets.Scripts.Shared.Hero
             bool HasTakenTooLongToReachCheckpoint() => Time.time - seekingStartingTime >= aproxTimeToReachCheckpoint;
         }
 
-        public Vector2 GetCurrentPosition() => new Vector2(transform.position.x, transform.position.y) - PositionOffset;
-
         #region Helpers
         private void FocusClosestCheckpoint()
         {
@@ -91,14 +89,15 @@ namespace Assets.Scripts.Shared.Hero
                 .First()
                 .Position;
 
-            transform.position = seekingCheckpointPosition + PositionOffset;
+            positionableEntity.SetPosition(seekingCheckpointPosition);
         }
 
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableHeroActor = GetComponent<KillableHeroActor>();
+            killableHeroActor = GetComponent<KillableHero>();
             mustSeekCheckpointPosition = false;
+            positionableEntity = GetComponent<PositionableEntity>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -111,29 +110,21 @@ namespace Assets.Scripts.Shared.Hero
                 if (CheckpointsTilemap.HasTile(localPlace))
                     checkpointPositions.Add(place);
             }
-
-            seekerDirectionStrategies = new List<ISeekerDirectionStrategy>
-            {
-                new UpSeekerDirectionStrategy(),
-                new DownSeekerDirectionStrategy(),
-                new LeftSeekerDirectionStrategy(),
-                new RightSeekerDirectionStrategy()
-            };
         }
 
-        private bool IsInCheckpointPosition() => GetCurrentPosition() == seekingCheckpointPosition;
+        private bool IsInCheckpointPosition() => positionableEntity.GetPosition() == seekingCheckpointPosition;
 
         private void SeekCheckpoint()
         {
             const float CheckpointPositionThreshold = 0.05f;
 
-            if (Vector2.Distance(GetCurrentPosition(), seekingCheckpointPosition) <= CheckpointPositionThreshold)
+            if (Vector2.Distance(positionableEntity.GetPosition(), seekingCheckpointPosition) <= CheckpointPositionThreshold)
             {
-                transform.position = seekingCheckpointPosition + PositionOffset;
+                positionableEntity.SetPosition(seekingCheckpointPosition);
                 return;
             }
 
-            var velocity = (seekingCheckpointPosition - GetCurrentPosition()).normalized * Speed;
+            var velocity = (seekingCheckpointPosition - positionableEntity.GetPosition()).normalized * Speed;
 
             rigidbody2D.velocity = velocity;
             spriteRenderer.flipX = velocity.x < -0.1f;

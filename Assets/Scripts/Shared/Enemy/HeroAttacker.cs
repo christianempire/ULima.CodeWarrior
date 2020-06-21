@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.Shared.Enemy
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(KillableEnemyActor))]
+    [RequireComponent(typeof(KillableEnemy))]
     public class HeroAttacker : MonoBehaviour
     {
         public int Damage = 150;
@@ -18,8 +18,8 @@ namespace Assets.Scripts.Shared.Enemy
         private const float TIME_AFTER_ATTACKING = 0.57f;
 
         private Animator animator;
-        private KillableEnemyActor killableEnemyActor;
-        private KillableHeroActor killableHeroActor;
+        private KillableEnemy killableEnemyActor;
+        private KillableHero killableHeroActor;
         #endregion
 
         void Awake()
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Shared.Enemy
             await new WaitForSeconds(TIME_BEFORE_ATTACKING);
 
             if (!killableEnemyActor.IsDead() || killableHeroActor.IsDead())
-                Hero.GetComponent<KillableHeroActor>().TakeDamage(Damage);
+                Hero.GetComponent<KillableHero>().TakeDamage(Damage);
 
             await new WaitForSeconds(TIME_AFTER_ATTACKING);
         }
@@ -46,8 +46,8 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableEnemyActor = GetComponent<KillableEnemyActor>();
-            killableHeroActor = Hero.GetComponent<KillableHeroActor>();
+            killableEnemyActor = GetComponent<KillableEnemy>();
+            killableHeroActor = Hero.GetComponent<KillableHero>();
         }
         #endregion
     }

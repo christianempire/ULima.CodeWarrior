@@ -6,7 +6,7 @@ namespace Assets.Scripts.Shared.Enemy
     [RequireComponent(typeof(HeroAttacker))]
     [RequireComponent(typeof(HeroChaser))]
     [RequireComponent(typeof(HeroLocator))]
-    public class BasicEnemyActor : MonoBehaviour
+    public class PatrollingEnemyActor : MonoBehaviour
     {
         public GameObject Hero;
 
@@ -16,6 +16,7 @@ namespace Assets.Scripts.Shared.Enemy
         private HeroLocator heroLocator;
         private KillableEnemy killableEnemyActor;
         private KillableHero killableHeroActor;
+        private Patroller patroller;
         #endregion
 
         async void Start()
@@ -23,6 +24,8 @@ namespace Assets.Scripts.Shared.Enemy
             InitializeProperties();
 
             await heroLocator.LocateHeroAsync();
+            
+            patroller.StopPatrolling();
 
             while (!killableEnemyActor.IsDead() && !killableHeroActor.IsDead())
             {
@@ -39,6 +42,7 @@ namespace Assets.Scripts.Shared.Enemy
             heroLocator = GetComponent<HeroLocator>();
             killableEnemyActor = GetComponent<KillableEnemy>();
             killableHeroActor = Hero.GetComponent<KillableHero>();
+            patroller = GetComponent<Patroller>();
         }
         #endregion
     }

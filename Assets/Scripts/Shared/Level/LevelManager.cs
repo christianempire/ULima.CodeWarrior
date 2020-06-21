@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Constants;
 using Assets.Scripts.Shared.Enemy;
 using Assets.Scripts.Shared.Hero;
-using Assets.Scripts.Shared.Level.LevelInstructionStrategies;
+using Assets.Scripts.Shared.Level.InstructionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +19,8 @@ namespace Assets.Scripts.Shared.Level
         #region Properties
         private Animator heroAnimator;
         private Queue<string> instructions;
-        private KillableEnemyActor[] killableEnemyActors;
-        private List<ILevelInstructionStrategy> levelInstructionStrategies;
+        private KillableEnemy[] killableEnemyActors;
+        private List<InstructionStrategy> levelInstructionStrategies;
         private VictoryChecker victoryChecker;
         #endregion
 
@@ -64,11 +64,11 @@ namespace Assets.Scripts.Shared.Level
         {
             heroAnimator = Hero.GetComponent<Animator>();
             instructions = GetComponent<InstructionCompiler>().GetInstructions();
-            killableEnemyActors = GameObject.FindObjectsOfType<KillableEnemyActor>();
+            killableEnemyActors = GameObject.FindObjectsOfType<KillableEnemy>();
             victoryChecker = GetComponent<VictoryChecker>();
 
             var heroCheckpointSeeker = Hero.GetComponent<CheckpointSeeker>();
-            levelInstructionStrategies = new List<ILevelInstructionStrategy>
+            levelInstructionStrategies = new List<InstructionStrategy>
             {
                 new HeroMoveDownLevelInstructionStrategy(heroCheckpointSeeker),
                 new HeroMoveLeftLevelInstructionStrategy(heroCheckpointSeeker),
