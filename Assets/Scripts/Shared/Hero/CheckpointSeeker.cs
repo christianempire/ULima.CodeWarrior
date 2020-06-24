@@ -23,7 +23,7 @@ namespace Assets.Scripts.Shared.Hero
 
         private Animator animator;
         private List<Vector2> checkpointPositions;
-        private KillableHero killableHeroActor;
+        private KillableHero killableHero;
         private bool mustSeekCheckpointPosition;
         private PositionableEntity positionableEntity;
         private new Rigidbody2D rigidbody2D;
@@ -60,13 +60,13 @@ namespace Assets.Scripts.Shared.Hero
             var aproxTimeToReachCheckpoint = Mathf.CeilToInt(distanceToCheckpoint * 2 / Speed);
             var seekingStartingTime = Time.time;
 
-            await new WaitUntil(() => IsInCheckpointPosition() || HasTakenTooLongToReachCheckpoint() || killableHeroActor.IsDead());
+            await new WaitUntil(() => IsInCheckpointPosition() || HasTakenTooLongToReachCheckpoint() || killableHero.IsDead());
 
-            if (!IsInCheckpointPosition() && !killableHeroActor.IsDead())
+            if (!IsInCheckpointPosition() && !killableHero.IsDead())
             {
                 seekingCheckpointPosition = oldSeekingCheckpointPosition;
 
-                await new WaitUntil(() => IsInCheckpointPosition() || killableHeroActor.IsDead());
+                await new WaitUntil(() => IsInCheckpointPosition() || killableHero.IsDead());
             }
 
             StopSeekingCheckpoint();
@@ -95,7 +95,7 @@ namespace Assets.Scripts.Shared.Hero
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableHeroActor = GetComponent<KillableHero>();
+            killableHero = GetComponent<KillableHero>();
             mustSeekCheckpointPosition = false;
             positionableEntity = GetComponent<PositionableEntity>();
             rigidbody2D = GetComponent<Rigidbody2D>();

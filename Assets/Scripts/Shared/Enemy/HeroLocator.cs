@@ -16,8 +16,8 @@ namespace Assets.Scripts.Shared.Enemy
         #region Properties
         private PositionableEntity heroPositionableEntity;
         private bool isHeroVisible;
-        private KillableEnemy killableEnemyActor;
-        private KillableHero killableHeroActor;
+        private KillableEnemy killableEnemy;
+        private KillableHero killableHero;
         private bool mustLocateHero;
         private PositionableEntity positionableEntity;
         #endregion
@@ -35,12 +35,12 @@ namespace Assets.Scripts.Shared.Enemy
 
         public async Task LocateHeroAsync()
         {
-            if (killableEnemyActor.IsDead() || killableHeroActor.IsDead())
+            if (killableEnemy.IsDead() || killableHero.IsDead())
                 return;
 
             mustLocateHero = true;
 
-            await new WaitUntil(() => isHeroVisible || killableEnemyActor.IsDead() || killableHeroActor.IsDead());
+            await new WaitUntil(() => isHeroVisible || killableEnemy.IsDead() || killableHero.IsDead());
 
             mustLocateHero = false;
         }
@@ -50,8 +50,8 @@ namespace Assets.Scripts.Shared.Enemy
         {
             heroPositionableEntity = Hero.GetComponent<PositionableEntity>();
             isHeroVisible = false;
-            killableEnemyActor = GetComponent<KillableEnemy>();
-            killableHeroActor = Hero.GetComponent<KillableHero>();
+            killableEnemy = GetComponent<KillableEnemy>();
+            killableHero = Hero.GetComponent<KillableHero>();
             mustLocateHero = false;
             positionableEntity = GetComponent<PositionableEntity>();
         }

@@ -16,8 +16,8 @@ namespace Assets.Scripts.Shared.Enemy
 
         #region Properties
         private Animator animator;
-        private KillableEnemy killableEnemyActor;
-        private KillableHero killableHeroActor;
+        private KillableEnemy killableEnemy;
+        private KillableHero killableHero;
         private bool mustChaseHero;
         private new Rigidbody2D rigidbody2D;
         private SpriteRenderer spriteRenderer;
@@ -38,12 +38,12 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const float ChasedDistance = 1.0f;
 
-            if (killableEnemyActor.IsDead() || killableHeroActor.IsDead())
+            if (killableEnemy.IsDead() || killableHero.IsDead())
                 return;
 
             mustChaseHero = true;
 
-            await new WaitUntil(() => HeroIsChased() || killableEnemyActor.IsDead() || killableHeroActor.IsDead());
+            await new WaitUntil(() => HeroIsChased() || killableEnemy.IsDead() || killableHero.IsDead());
 
             mustChaseHero = false;
 
@@ -67,8 +67,8 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableEnemyActor = GetComponent<KillableEnemy>();
-            killableHeroActor = Hero.GetComponent<KillableHero>();
+            killableEnemy = GetComponent<KillableEnemy>();
+            killableHero = Hero.GetComponent<KillableHero>();
             mustChaseHero = false;
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();

@@ -18,8 +18,8 @@ namespace Assets.Scripts.Shared.Enemy
         private const float TIME_AFTER_ATTACKING = 0.57f;
 
         private Animator animator;
-        private KillableEnemy killableEnemyActor;
-        private KillableHero killableHeroActor;
+        private KillableEnemy killableEnemy;
+        private KillableHero killableHero;
         #endregion
 
         void Awake()
@@ -29,14 +29,14 @@ namespace Assets.Scripts.Shared.Enemy
 
         public async Task AttackHeroAsync()
         {
-            if (killableEnemyActor.IsDead() || killableHeroActor.IsDead())
+            if (killableEnemy.IsDead() || killableHero.IsDead())
                 return;
 
             animator.SetTrigger(EnemyAnimatorConstants.AttackParameter);
 
             await new WaitForSeconds(TIME_BEFORE_ATTACKING);
 
-            if (!killableEnemyActor.IsDead() || killableHeroActor.IsDead())
+            if (!killableEnemy.IsDead() || killableHero.IsDead())
                 Hero.GetComponent<KillableHero>().TakeDamage(Damage);
 
             await new WaitForSeconds(TIME_AFTER_ATTACKING);
@@ -46,8 +46,8 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableEnemyActor = GetComponent<KillableEnemy>();
-            killableHeroActor = Hero.GetComponent<KillableHero>();
+            killableEnemy = GetComponent<KillableEnemy>();
+            killableHero = Hero.GetComponent<KillableHero>();
         }
         #endregion
     }

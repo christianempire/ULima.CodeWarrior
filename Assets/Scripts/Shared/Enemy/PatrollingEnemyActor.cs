@@ -14,8 +14,8 @@ namespace Assets.Scripts.Shared.Enemy
         private HeroAttacker heroAttacker;
         private HeroChaser heroChaser;
         private HeroLocator heroLocator;
-        private KillableEnemy killableEnemyActor;
-        private KillableHero killableHeroActor;
+        private KillableEnemy killableEnemy;
+        private KillableHero killableHero;
         private Patroller patroller;
         #endregion
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Shared.Enemy
             
             patroller.StopPatrolling();
 
-            while (!killableEnemyActor.IsDead() && !killableHeroActor.IsDead())
+            while (!killableEnemy.IsDead() && !killableHero.IsDead())
             {
                 await heroChaser.ChaseHeroAsync();
                 await heroAttacker.AttackHeroAsync();
@@ -40,8 +40,8 @@ namespace Assets.Scripts.Shared.Enemy
             heroAttacker = GetComponent<HeroAttacker>();
             heroChaser = GetComponent<HeroChaser>();
             heroLocator = GetComponent<HeroLocator>();
-            killableEnemyActor = GetComponent<KillableEnemy>();
-            killableHeroActor = Hero.GetComponent<KillableHero>();
+            killableEnemy = GetComponent<KillableEnemy>();
+            killableHero = Hero.GetComponent<KillableHero>();
             patroller = GetComponent<Patroller>();
         }
         #endregion

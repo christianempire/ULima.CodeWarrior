@@ -31,7 +31,7 @@ namespace Assets.Scripts.Shared.Level
             await new WaitForSeconds(1.0f);
             await ExecuteInstructionsAsync();
 
-            if (victoryChecker.IsVictoryAchieved())
+            if (await victoryChecker.IsVictoryAchievedAsync())
             {
                 KillAllEnemies();
 

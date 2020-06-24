@@ -3,6 +3,7 @@ using Assets.Scripts.Shared;
 using Assets.Scripts.Shared.Hero;
 using Assets.Scripts.Shared.Level;
 using System.Data;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,11 +25,11 @@ namespace Assets.Scripts.Level002
             InitializeProperties();
         }
 
-        public override bool IsVictoryAchieved()
+        public override async Task<bool> IsVictoryAchievedAsync()
         {
             var victoryCheckpointPosition = GetVictoryCheckpointPosition();
 
-            return HasCollectedAllItems() && IsInVictoryCheckpoint();
+            return await Task.FromResult(HasCollectedAllItems() && IsInVictoryCheckpoint());
 
             bool HasCollectedAllItems() => heroItemPicker.ItemsCount == totalItems;
             bool IsInVictoryCheckpoint() => heroPositionableEntity.GetPosition() == victoryCheckpointPosition;

@@ -21,7 +21,7 @@ namespace Assets.Scripts.Shared.Enemy
         private List<Vector2> checkpointPositions;
         private Queue<CheckpointDirection> currentPatrollingDirections;
         private bool isPatrolling;
-        private KillableEnemy killableEnemyActor;
+        private KillableEnemy killableEnemy;
         private Vector2 nextPatrollingPosition;
         private PositionableEntity positionableEntity;
         private new Rigidbody2D rigidbody2D;
@@ -38,7 +38,7 @@ namespace Assets.Scripts.Shared.Enemy
         {
             if (isPatrolling)
             {
-                if (killableEnemyActor.IsDead())
+                if (killableEnemy.IsDead())
                 {
                     StopPatrolling();
                     return;
@@ -98,7 +98,7 @@ namespace Assets.Scripts.Shared.Enemy
             animator = GetComponent<Animator>();
             currentPatrollingDirections = GetPatrollingDirections();
             isPatrolling = true;
-            killableEnemyActor = GetComponent<KillableEnemy>();
+            killableEnemy = GetComponent<KillableEnemy>();
             positionableEntity = GetComponent<PositionableEntity>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
