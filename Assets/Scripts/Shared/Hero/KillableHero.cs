@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Constants;
+﻿using Assets.Scripts.Constants.Hero;
 
 namespace Assets.Scripts.Shared.Hero
 {

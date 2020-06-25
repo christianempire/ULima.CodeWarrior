@@ -1,13 +1,13 @@
 ﻿using Assets.Scripts.Shared.Level.InstructionStrategies;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Level002.InstructionWriters
+namespace Assets.Scripts.Shared.Level.InstructionWriters
 {
-    public class Hero
+    public class BasicHero
     {
-        private readonly Queue<string> instructions;
+        protected readonly Queue<string> instructions;
 
-        public Hero(Queue<string> instructions)
+        public BasicHero(Queue<string> instructions)
         {
             this.instructions = instructions;
         }

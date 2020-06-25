@@ -4,7 +4,7 @@ namespace Assets._Levels.Level002
 {
     public class Level002A : Level002Script
     {
-        public void Main()
+        public override void Main()
         {
             // Grab all the potions using your movement commands.
             Hero.MoveRight();

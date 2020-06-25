@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Constants;
+﻿using Assets.Scripts.Constants.Enemy;
 
 namespace Assets.Scripts.Shared.Enemy
 {

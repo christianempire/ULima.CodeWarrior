@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Level003.InstructionWriters;
-using Assets.Scripts.Shared.Level;
+﻿using Assets.Scripts.Shared.Level;
+using Assets.Scripts.Shared.Level.InstructionWriters;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.Level003
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Level003
             Queue<string> instructions = new Queue<string>();
             var level = new _Levels.Level003.Level003A
             {
-                Hero = new Hero(instructions)
+                Hero = new BasicHero(instructions)
             };
 
             level.Main();

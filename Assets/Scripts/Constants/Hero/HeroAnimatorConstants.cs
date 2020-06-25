@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Constants
+﻿namespace Assets.Scripts.Constants.Hero
 {
     public static class HeroAnimatorConstants
     {

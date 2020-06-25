@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Constants;
+﻿using Assets.Scripts.Constants.Hero;
 using Assets.Scripts.Shared.Level.CheckpointDirectionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;

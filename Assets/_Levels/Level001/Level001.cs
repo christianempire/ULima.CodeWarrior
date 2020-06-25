@@ -4,7 +4,7 @@ namespace Assets._Levels.Level001
 {
     public class Level001 : Level001Script
     {
-        public void Main()
+        public override void Main()
         {
             // Move towards the potion
             // Type your code below and click Play when you're done.

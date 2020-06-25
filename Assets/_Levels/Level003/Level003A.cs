@@ -4,7 +4,7 @@ namespace Assets._Levels.Level003
 {
     public class Level003A : Level003Script
     {
-        public void Main()
+        public override void Main()
         {
             // Avoid the enemies and grab the potion.
             Hero.MoveDown();

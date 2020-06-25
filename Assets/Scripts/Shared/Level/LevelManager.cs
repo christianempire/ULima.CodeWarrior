@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Constants;
+﻿using Assets.Scripts.Constants.Hero;
 using Assets.Scripts.Shared.Enemy;
 using Assets.Scripts.Shared.Hero;
 using Assets.Scripts.Shared.Level.InstructionStrategies;

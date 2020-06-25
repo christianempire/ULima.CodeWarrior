@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Constants
+﻿namespace Assets.Scripts.Constants.Enemy
 {
     public static class EnemyAnimatorConstants
     {

@@ -1,9 +1,10 @@
-﻿using Assets.Scripts.Level003.InstructionWriters;
+﻿using Assets.Scripts.Shared.Level;
+using Assets.Scripts.Shared.Level.InstructionWriters;
 
 namespace Assets.Scripts.Level003
 {
-    public class Level003Script
+    public abstract class Level003Script : LevelScript
     {
-        public Hero Hero { get; set; }
+        public BasicHero Hero { get; set; }
     }
 }

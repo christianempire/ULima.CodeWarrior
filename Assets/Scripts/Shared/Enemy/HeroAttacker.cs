@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Constants;
+﻿using Assets.Scripts.Constants.Enemy;
 using Assets.Scripts.Shared.Hero;
 using Asyncoroutine;
 using System.Threading.Tasks;
