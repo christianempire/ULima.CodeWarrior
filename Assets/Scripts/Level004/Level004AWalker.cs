@@ -15,7 +15,6 @@ namespace Assets.Scripts.Level004
 
             walkingDirections.Enqueue(CheckpointDirection.Right);
             walkingDirections.Enqueue(CheckpointDirection.Right);
-            walkingDirections.Enqueue(CheckpointDirection.Right);
 
             return walkingDirections;
         }

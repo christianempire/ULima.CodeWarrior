@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Constants;
-using Assets.Scripts.Shared.Hero;
 using Asyncoroutine;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -10,14 +10,11 @@ namespace Assets.Scripts.Shared.Enemy
     [RequireComponent(typeof(PositionableEntity))]
     public class HeroLocator : MonoBehaviour
     {
-        public GameObject Hero;
         public LayerMask CurrentLayerMask;
 
         #region Properties
-        private PositionableEntity heroPositionableEntity;
         private bool isHeroVisible;
         private KillableEnemy killableEnemy;
-        private KillableHero killableHero;
         private bool mustLocateHero;
         private PositionableEntity positionableEntity;
         #endregion
@@ -35,12 +32,12 @@ namespace Assets.Scripts.Shared.Enemy
 
         public async Task LocateHeroAsync()
         {
-            if (killableEnemy.IsDead() || killableHero.IsDead())
+            if (killableEnemy.IsDead())
                 return;
 
             mustLocateHero = true;
 
-            await new WaitUntil(() => isHeroVisible || killableEnemy.IsDead() || killableHero.IsDead());
+            await new WaitUntil(() => isHeroVisible || killableEnemy.IsDead());
 
             mustLocateHero = false;
         }
@@ -48,10 +45,8 @@ namespace Assets.Scripts.Shared.Enemy
         #region Helpers
         private void InitializeProperties()
         {
-            heroPositionableEntity = Hero.GetComponent<PositionableEntity>();
             isHeroVisible = false;
             killableEnemy = GetComponent<KillableEnemy>();
-            killableHero = Hero.GetComponent<KillableHero>();
             mustLocateHero = false;
             positionableEntity = GetComponent<PositionableEntity>();
         }
@@ -60,10 +55,20 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const float maxDistance = 1000.0f;
 
-            var heroDirection = heroPositionableEntity.GetColliderPosition() - positionableEntity.GetColliderPosition();
-            var raycastHit = Physics2D.Raycast(positionableEntity.GetColliderPosition(), heroDirection, maxDistance, ~CurrentLayerMask);
+            var raycastHitColliders = GameObject.FindGameObjectsWithTag(TagConstants.HeroTag)
+                .Select(heroObject =>
+                {
+                    var heroPositionableEntity = heroObject.GetComponent<PositionableEntity>();
+                    var heroDirection = heroPositionableEntity.GetColliderPosition() - positionableEntity.GetColliderPosition();
+                    var raycastHit = Physics2D.Raycast(positionableEntity.GetColliderPosition(), heroDirection, maxDistance, ~CurrentLayerMask);
 
-            isHeroVisible = raycastHit.collider != null && raycastHit.collider.CompareTag(TagConstants.HeroTag);
+                    return raycastHit.collider;
+                })
+                .ToList();
+
+            isHeroVisible = raycastHitColliders.Any(collider => collider != null && 
+                collider.CompareTag(TagConstants.HeroTag) &&
+                !collider.GetComponent<KillableEntity>().IsDead());
         }
         #endregion
     }

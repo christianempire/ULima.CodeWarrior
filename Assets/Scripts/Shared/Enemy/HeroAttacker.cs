@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Constants.Enemy;
-using Assets.Scripts.Shared.Hero;
+﻿using Assets.Scripts.Constants;
+using Assets.Scripts.Constants.Enemy;
 using Asyncoroutine;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace Assets.Scripts.Shared.Enemy
     public class HeroAttacker : MonoBehaviour
     {
         public int Damage = 150;
-        public GameObject Hero;
 
         #region Properties
         private const float TIME_BEFORE_ATTACKING = 0.16f;
@@ -19,7 +19,6 @@ namespace Assets.Scripts.Shared.Enemy
 
         private Animator animator;
         private KillableEnemy killableEnemy;
-        private KillableHero killableHero;
         #endregion
 
         void Awake()
@@ -29,25 +28,35 @@ namespace Assets.Scripts.Shared.Enemy
 
         public async Task AttackHeroAsync()
         {
-            if (killableEnemy.IsDead() || killableHero.IsDead())
+            if (killableEnemy.IsDead())
                 return;
 
             animator.SetTrigger(EnemyAnimatorConstants.AttackParameter);
 
             await new WaitForSeconds(TIME_BEFORE_ATTACKING);
 
-            if (!killableEnemy.IsDead() || killableHero.IsDead())
-                Hero.GetComponent<KillableHero>().TakeDamage(Damage);
+            if (!killableEnemy.IsDead())
+                GetClosestKillableHeroEntity().TakeDamage(Damage);
 
             await new WaitForSeconds(TIME_AFTER_ATTACKING);
         }
 
         #region Helpers
+        private KillableEntity GetClosestKillableHeroEntity() => GameObject.FindGameObjectsWithTag(TagConstants.HeroTag)
+            .Select(heroObject => new
+            {
+                KillableHeroEntity = heroObject.GetComponent<KillableEntity>(),
+                Distance = Vector2.Distance(heroObject.transform.position, transform.position)
+            })
+            .Where(heroObjectData => !heroObjectData.KillableHeroEntity.IsDead())
+            .OrderBy(heroObjectData => heroObjectData.Distance)
+            .First()
+            .KillableHeroEntity;
+
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
             killableEnemy = GetComponent<KillableEnemy>();
-            killableHero = Hero.GetComponent<KillableHero>();
         }
         #endregion
     }

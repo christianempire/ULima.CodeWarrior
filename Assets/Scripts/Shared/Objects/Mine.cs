@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Constants.Objects;
 using Asyncoroutine;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Shared.Objects
@@ -21,11 +23,11 @@ namespace Assets.Scripts.Shared.Objects
         {
             const int Damage = 1000;
 
-            var killableEntity = collision.GetComponent<KillableEntity>();
-
-            if (killableEntity != null)
+            if (IsAKillableEntity(collision))
             {
-                killableEntity.TakeDamage(Damage);
+                foreach (var killableEntity in GetNearKillableEntities())
+                    killableEntity.TakeDamage(Damage);
+
                 animator.SetTrigger(MineAnimatorConstants.ExplodeParameter);
 
                 await new WaitForSeconds(MineAnimatorConstants.ExplodeAnimationDuration);
@@ -35,10 +37,21 @@ namespace Assets.Scripts.Shared.Objects
         }
 
         #region Helpers
+        private List<KillableEntity> GetNearKillableEntities()
+        {
+            const float MaxDistance = 5.0f;
+
+            return FindObjectsOfType<KillableEntity>()
+                .Where(killableEntity => Vector2.Distance(killableEntity.gameObject.transform.position, transform.position) <= MaxDistance)
+                .ToList();
+        }
+
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
         }
+
+        private bool IsAKillableEntity(Collider2D collision) => collision.GetComponent<KillableEntity>() != null;
         #endregion
     }
 }

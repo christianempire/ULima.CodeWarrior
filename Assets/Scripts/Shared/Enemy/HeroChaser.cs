@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Constants.Enemy;
-using Assets.Scripts.Shared.Hero;
+﻿using Assets.Scripts.Constants;
+using Assets.Scripts.Constants.Enemy;
 using Asyncoroutine;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -12,12 +13,9 @@ namespace Assets.Scripts.Shared.Enemy
     [RequireComponent(typeof(SpriteRenderer))]
     public class HeroChaser : MonoBehaviour
     {
-        public GameObject Hero;
-
         #region Properties
         private Animator animator;
         private KillableEnemy killableEnemy;
-        private KillableHero killableHero;
         private bool mustChaseHero;
         private new Rigidbody2D rigidbody2D;
         private SpriteRenderer spriteRenderer;
@@ -38,18 +36,18 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const float ChasedDistance = 1.0f;
 
-            if (killableEnemy.IsDead() || killableHero.IsDead())
+            if (killableEnemy.IsDead())
                 return;
 
             mustChaseHero = true;
 
-            await new WaitUntil(() => HeroIsChased() || killableEnemy.IsDead() || killableHero.IsDead());
+            await new WaitUntil(() => HeroIsChased() || killableEnemy.IsDead());
 
             mustChaseHero = false;
 
             StopChasing();
 
-            bool HeroIsChased() => Vector2.Distance(Hero.transform.position, transform.position) <= ChasedDistance;
+            bool HeroIsChased() => Vector2.Distance(GetClosestHeroObjectPosition(), transform.position) <= ChasedDistance;
         }
 
         #region Helpers
@@ -57,18 +55,33 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const float Speed = 5.0f;
 
-            var velocity = (Hero.transform.position - transform.position).normalized * Speed;
+            var velocity = (GetClosestHeroObjectPosition() - transform.position).normalized * Speed;
 
             rigidbody2D.velocity = velocity;
             spriteRenderer.flipX = velocity.x < -0.1f;
             animator.SetBool(EnemyAnimatorConstants.IsRunningParameter, true);
         }
 
+        private Vector3 GetClosestHeroObjectPosition()
+        {
+            var closestHeroObject = GameObject.FindGameObjectsWithTag(TagConstants.HeroTag)
+            .Select(heroObject => new
+            {
+                HeroObject = heroObject,
+                Distance = Vector2.Distance(heroObject.transform.position, transform.position)
+            })
+            .Where(heroObjectData => !heroObjectData.HeroObject.GetComponent<KillableEntity>().IsDead())
+            .OrderBy(heroObjectData => heroObjectData.Distance)
+            .First()
+            .HeroObject;
+
+            return closestHeroObject.transform.position;
+        }
+
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
             killableEnemy = GetComponent<KillableEnemy>();
-            killableHero = Hero.GetComponent<KillableHero>();
             mustChaseHero = false;
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
