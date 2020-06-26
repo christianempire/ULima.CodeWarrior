@@ -63,7 +63,7 @@ namespace Assets.Scripts.Shared.Enemy
             var heroDirection = heroPositionableEntity.GetColliderPosition() - positionableEntity.GetColliderPosition();
             var raycastHit = Physics2D.Raycast(positionableEntity.GetColliderPosition(), heroDirection, maxDistance, ~CurrentLayerMask);
 
-            isHeroVisible = raycastHit.collider != null && raycastHit.collider.CompareTag(TagConstants.PlayerTag);
+            isHeroVisible = raycastHit.collider != null && raycastHit.collider.CompareTag(TagConstants.HeroTag);
         }
         #endregion
     }

@@ -2,7 +2,7 @@
 {
     public static class TagConstants
     {
+        public const string HeroTag = "Hero";
         public const string ItemTag = "Item";
-        public const string PlayerTag = "Player";
     }
 }
