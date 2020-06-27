@@ -11,8 +11,6 @@ namespace Assets.Scripts.Shared.Enemy
     [RequireComponent(typeof(KillableEnemy))]
     public class HeroAttacker : MonoBehaviour
     {
-        public int Damage = 150;
-
         #region Properties
         private const float TIME_BEFORE_ATTACKING = 0.16f;
         private const float TIME_AFTER_ATTACKING = 0.57f;
@@ -28,6 +26,8 @@ namespace Assets.Scripts.Shared.Enemy
 
         public async Task AttackHeroAsync()
         {
+            const int Damage = 150;
+
             if (killableEnemy.IsDead())
                 return;
 
