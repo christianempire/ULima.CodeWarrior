@@ -1662,6 +1662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 174019583}
   - component: {fileID: 174019582}
+  - component: {fileID: 174019584}
   - component: {fileID: 174019581}
   m_Layer: 0
   m_Name: VictoryConditions
@@ -1711,6 +1712,19 @@ Transform:
   m_Father: {fileID: 265390951}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &174019584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174019580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0da245b45c25dc4c8e67d5665dbdb17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hero: {fileID: 1585499661}
 --- !u!1 &265390947
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,7 +2264,7 @@ Tilemap:
       - {fileID: 21300000, guid: c4309de38f7853f4a9b89cfe21db2537, type: 3}
       - {fileID: 21300000, guid: de44ee933d41ea445963c1705216f69d, type: 3}
       - {fileID: 21300000, guid: a7b5a152875561f4c88e20b4886e45fa, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 13, y: -4, z: 0}
@@ -2358,7 +2372,7 @@ Tilemap:
       - {fileID: 21300000, guid: c4309de38f7853f4a9b89cfe21db2537, type: 3}
       - {fileID: 21300000, guid: de44ee933d41ea445963c1705216f69d, type: 3}
       - {fileID: 21300000, guid: a7b5a152875561f4c88e20b4886e45fa, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 2, z: 0}

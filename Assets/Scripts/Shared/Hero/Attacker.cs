@@ -10,9 +10,6 @@ namespace Assets.Scripts.Shared.Hero
     public class Attacker : MonoBehaviour
     {
         #region Properties
-        private const float TIME_BEFORE_ATTACKING = 0.16f;
-        private const float TIME_AFTER_ATTACKING = 0.2f;
-
         private Animator animator;
         private KillableEntity killableEntity;
         #endregion
@@ -25,6 +22,8 @@ namespace Assets.Scripts.Shared.Hero
         public async Task AttackEntityAsync(string name)
         {
             const int Damage = 150;
+            const float TimeBeforeAttacking = 0.16f;
+            const float TimeAfterAttacking = 0.2f;
 
             if (killableEntity.IsDead())
                 return;
@@ -36,12 +35,14 @@ namespace Assets.Scripts.Shared.Hero
 
             animator.SetTrigger(HeroAnimatorConstants.AttackParameter);
 
-            await new WaitForSeconds(TIME_BEFORE_ATTACKING);
+            await new WaitForSeconds(TimeBeforeAttacking);
 
             if (!killableEntity.IsDead())
+            {
                 attackingKillableEntity.TakeDamage(Damage);
 
-            await new WaitForSeconds(TIME_AFTER_ATTACKING);
+                await new WaitForSeconds(TimeAfterAttacking);
+            }
         }
 
         #region Helpers

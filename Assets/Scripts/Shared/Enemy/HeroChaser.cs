@@ -15,6 +15,7 @@ namespace Assets.Scripts.Shared.Enemy
     {
         #region Properties
         private Animator animator;
+        private Vector3? closestHeroObjectPosition;
         private KillableEntity killableEntity;
         private bool mustChaseHero;
         private new Rigidbody2D rigidbody2D;
@@ -28,26 +29,24 @@ namespace Assets.Scripts.Shared.Enemy
 
         void Update()
         {
+            closestHeroObjectPosition = GetClosestHeroObjectPosition();
+
             if (mustChaseHero)
                 ChaseHero();
         }
 
         public async Task ChaseHeroAsync()
         {
-            const float ChasedDistance = 1.0f;
-
             if (killableEntity.IsDead())
                 return;
 
             mustChaseHero = true;
 
-            await new WaitUntil(() => HeroIsChased() || killableEntity.IsDead());
+            await new WaitUntil(() => !closestHeroObjectPosition.HasValue || HeroIsChased() || killableEntity.IsDead());
 
             mustChaseHero = false;
 
             StopChasing();
-
-            bool HeroIsChased() => Vector2.Distance(GetClosestHeroObjectPosition(), transform.position) <= ChasedDistance;
         }
 
         #region Helpers
@@ -55,27 +54,40 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const float Speed = 5.0f;
 
-            var velocity = (GetClosestHeroObjectPosition() - transform.position).normalized * Speed;
+            if (!closestHeroObjectPosition.HasValue)
+                return;
+
+            var velocity = (closestHeroObjectPosition.Value - transform.position).normalized * Speed;
 
             rigidbody2D.velocity = velocity;
             spriteRenderer.flipX = velocity.x < -0.1f;
             animator.SetBool(EnemyAnimatorConstants.IsRunningParameter, true);
         }
 
-        private Vector3 GetClosestHeroObjectPosition()
+        private Vector3? GetClosestHeroObjectPosition()
         {
             var closestHeroObject = GameObject.FindGameObjectsWithTag(TagConstants.HeroTag)
-            .Select(heroObject => new
-            {
-                HeroObject = heroObject,
-                Distance = Vector2.Distance(heroObject.transform.position, transform.position)
-            })
-            .Where(heroObjectData => !heroObjectData.HeroObject.GetComponent<KillableEntity>().IsDead())
-            .OrderBy(heroObjectData => heroObjectData.Distance)
-            .First()
-            .HeroObject;
+                .Select(heroObject => new
+                {
+                    HeroObject = heroObject,
+                    Distance = Vector2.Distance(heroObject.transform.position, transform.position)
+                })
+                .Where(heroObjectData => !heroObjectData.HeroObject.GetComponent<KillableEntity>().IsDead())
+                .OrderBy(heroObjectData => heroObjectData.Distance)
+                .FirstOrDefault()?
+                .HeroObject;
+
+            if (closestHeroObject == null)
+                return null;
 
             return closestHeroObject.transform.position;
+        }
+
+        private bool HeroIsChased()
+        {
+            const float ChasedDistance = 1.0f;
+
+            return Vector2.Distance(closestHeroObjectPosition.Value, transform.position) <= ChasedDistance;
         }
 
         private void InitializeProperties()

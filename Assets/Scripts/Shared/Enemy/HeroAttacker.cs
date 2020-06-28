@@ -12,10 +12,8 @@ namespace Assets.Scripts.Shared.Enemy
     public class HeroAttacker : MonoBehaviour
     {
         #region Properties
-        private const float TIME_BEFORE_ATTACKING = 0.16f;
-        private const float TIME_AFTER_ATTACKING = 0.57f;
-
         private Animator animator;
+        private KillableEntity closestKillableHeroEntity;
         private KillableEntity killableEntity;
         #endregion
 
@@ -24,21 +22,30 @@ namespace Assets.Scripts.Shared.Enemy
             InitializeProperties();
         }
 
+        void Update()
+        {
+            closestKillableHeroEntity = GetClosestKillableHeroEntity();
+        }
+
         public async Task AttackHeroAsync()
         {
             const int Damage = 150;
+            const float TimeBeforeAttacking = 0.16f;
+            const float TimeAfterAttacking = 0.57f;
 
             if (killableEntity.IsDead())
                 return;
 
             animator.SetTrigger(EnemyAnimatorConstants.AttackParameter);
 
-            await new WaitForSeconds(TIME_BEFORE_ATTACKING);
+            await new WaitForSeconds(TimeBeforeAttacking);
 
-            if (!killableEntity.IsDead())
-                GetClosestKillableHeroEntity().TakeDamage(Damage);
+            if (!killableEntity.IsDead() && closestKillableHeroEntity != null)
+            {
+                closestKillableHeroEntity.TakeDamage(Damage);
 
-            await new WaitForSeconds(TIME_AFTER_ATTACKING);
+                await new WaitForSeconds(TimeAfterAttacking);
+            }
         }
 
         #region Helpers
@@ -50,7 +57,7 @@ namespace Assets.Scripts.Shared.Enemy
             })
             .Where(heroObjectData => !heroObjectData.KillableHeroEntity.IsDead())
             .OrderBy(heroObjectData => heroObjectData.Distance)
-            .First()
+            .FirstOrDefault()?
             .KillableHeroEntity;
 
         private void InitializeProperties()

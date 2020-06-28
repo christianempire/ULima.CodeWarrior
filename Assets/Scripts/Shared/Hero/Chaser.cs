@@ -37,8 +37,6 @@ namespace Assets.Scripts.Shared.Hero
 
         public async Task ChaseEntityAsync(string name)
         {
-            const float ChasedDistance = 1.0f;
-
             if (killableEntity.IsDead())
                 return;
 
@@ -54,8 +52,6 @@ namespace Assets.Scripts.Shared.Hero
             mustChaseEntity = false;
 
             StopChasing();
-
-            bool EntityIsChased() => Vector2.Distance(chasingPositionableEntity.transform.position, transform.position) <= ChasedDistance;
         }
 
         public bool IsEntityVisible(string name)
@@ -83,6 +79,13 @@ namespace Assets.Scripts.Shared.Hero
             rigidbody2D.velocity = velocity;
             spriteRenderer.flipX = velocity.x < -0.1f;
             animator.SetBool(HeroAnimatorConstants.IsWalkingParameter, true);
+        }
+
+        private bool EntityIsChased()
+        {
+            const float ChasedDistance = 1.0f;
+
+            return Vector2.Distance(chasingPositionableEntity.transform.position, transform.position) <= ChasedDistance;
         }
 
         private PositionableEntity FindPositionableEntity(string name)
