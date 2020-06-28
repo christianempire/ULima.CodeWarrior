@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Scripts.Shared.Enemy
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(KillableEnemy))]
+    [RequireComponent(typeof(KillableEntity))]
     public class HeroAttacker : MonoBehaviour
     {
         #region Properties
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Shared.Enemy
         private const float TIME_AFTER_ATTACKING = 0.57f;
 
         private Animator animator;
-        private KillableEnemy killableEnemy;
+        private KillableEntity killableEntity;
         #endregion
 
         void Awake()
@@ -28,14 +28,14 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const int Damage = 150;
 
-            if (killableEnemy.IsDead())
+            if (killableEntity.IsDead())
                 return;
 
             animator.SetTrigger(EnemyAnimatorConstants.AttackParameter);
 
             await new WaitForSeconds(TIME_BEFORE_ATTACKING);
 
-            if (!killableEnemy.IsDead())
+            if (!killableEntity.IsDead())
                 GetClosestKillableHeroEntity().TakeDamage(Damage);
 
             await new WaitForSeconds(TIME_AFTER_ATTACKING);
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableEnemy = GetComponent<KillableEnemy>();
+            killableEntity = GetComponent<KillableEntity>();
         }
         #endregion
     }

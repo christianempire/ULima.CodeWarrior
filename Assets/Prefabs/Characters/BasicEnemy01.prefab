@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 5623493634491893317}
   m_Layer: 10
   m_Name: BasicEnemy01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,8 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862dc2b62dffad348bfe5b62bf3a6510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 150
-  Hero: {fileID: 0}
 --- !u!114 &6981440116292508822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5115d8ab6aaa7684490d3d001c66326d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hero: {fileID: 0}
 --- !u!114 &3313232341717853988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66477564b58f8bd47b4bb3c48bf1a30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hero: {fileID: 0}
+  CurrentLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &5623493634491893317
 MonoBehaviour:
   m_ObjectHideFlags: 0

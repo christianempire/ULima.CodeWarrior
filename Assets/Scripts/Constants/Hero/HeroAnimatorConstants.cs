@@ -2,6 +2,7 @@
 {
     public static class HeroAnimatorConstants
     {
+        public const string AttackParameter = "Attack";
         public const string IsDeadParameter = "IsDead";
         public const string IsDizzyParameter = "IsDizzy";
         public const string IsWalkingParameter = "IsWalking";

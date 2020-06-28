@@ -1344,11 +1344,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 265390947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69a1c757998f86941aabc48528d29d06, type: 3}
+  m_Script: {fileID: 11500000, guid: 204c37a4122ebdb49a40bc2266e94f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckpointsTilemap: {fileID: 453536395}
-  Hero: {fileID: 1585499661}
+  VictoryConditions: {fileID: 1744937667}
 --- !u!114 &265390949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,7 +1383,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1744937670}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1537,7 +1537,7 @@ Tilemap:
       - {fileID: 21300000, guid: c4309de38f7853f4a9b89cfe21db2537, type: 3}
       - {fileID: 21300000, guid: de44ee933d41ea445963c1705216f69d, type: 3}
       - {fileID: 21300000, guid: a7b5a152875561f4c88e20b4886e45fa, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 9, y: -6, z: 0}
@@ -1582,7 +1582,7 @@ Tilemap:
       - {fileID: 21300000, guid: c4309de38f7853f4a9b89cfe21db2537, type: 3}
       - {fileID: 21300000, guid: de44ee933d41ea445963c1705216f69d, type: 3}
       - {fileID: 21300000, guid: a7b5a152875561f4c88e20b4886e45fa, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -4937,6 +4937,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CheckpointsTilemap: {fileID: 453536395}
+--- !u!1 &1744937667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1744937670}
+  - component: {fileID: 1744937669}
+  - component: {fileID: 1744937668}
+  m_Layer: 0
+  m_Name: VictoryConditions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1744937668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744937667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f0fa01369ab6144ad0e7f20bdcb035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hero: {fileID: 1585499661}
+  CheckpointsTilemap: {fileID: 453536395}
+--- !u!114 &1744937669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744937667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c9cf0a73cce6428c975ec8e60d412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hero: {fileID: 1585499661}
+--- !u!4 &1744937670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744937667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 265390951}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1791992741
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Shared.Enemy
 {
-    [RequireComponent(typeof(KillableEnemy))]
+    [RequireComponent(typeof(KillableEntity))]
     [RequireComponent(typeof(PositionableEntity))]
     public class HeroLocator : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace Assets.Scripts.Shared.Enemy
 
         #region Properties
         private bool isHeroVisible;
-        private KillableEnemy killableEnemy;
+        private KillableEntity killableEntity;
         private bool mustLocateHero;
         private PositionableEntity positionableEntity;
         #endregion
@@ -32,12 +32,12 @@ namespace Assets.Scripts.Shared.Enemy
 
         public async Task LocateHeroAsync()
         {
-            if (killableEnemy.IsDead())
+            if (killableEntity.IsDead())
                 return;
 
             mustLocateHero = true;
 
-            await new WaitUntil(() => isHeroVisible || killableEnemy.IsDead());
+            await new WaitUntil(() => isHeroVisible || killableEntity.IsDead());
 
             mustLocateHero = false;
         }
@@ -46,21 +46,21 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             isHeroVisible = false;
-            killableEnemy = GetComponent<KillableEnemy>();
+            killableEntity = GetComponent<KillableEntity>();
             mustLocateHero = false;
             positionableEntity = GetComponent<PositionableEntity>();
         }
 
         private void LocateHero()
         {
-            const float maxDistance = 1000.0f;
+            const float MaxDistance = 1000.0f;
 
             var raycastHitColliders = GameObject.FindGameObjectsWithTag(TagConstants.HeroTag)
                 .Select(heroObject =>
                 {
                     var heroPositionableEntity = heroObject.GetComponent<PositionableEntity>();
                     var heroDirection = heroPositionableEntity.GetColliderPosition() - positionableEntity.GetColliderPosition();
-                    var raycastHit = Physics2D.Raycast(positionableEntity.GetColliderPosition(), heroDirection, maxDistance, ~CurrentLayerMask);
+                    var raycastHit = Physics2D.Raycast(positionableEntity.GetColliderPosition(), heroDirection, MaxDistance, ~CurrentLayerMask);
 
                     return raycastHit.collider;
                 })

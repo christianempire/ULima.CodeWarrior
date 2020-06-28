@@ -8,14 +8,14 @@ using UnityEngine;
 namespace Assets.Scripts.Shared.Enemy
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(KillableEnemy))]
+    [RequireComponent(typeof(KillableEntity))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(SpriteRenderer))]
     public class HeroChaser : MonoBehaviour
     {
         #region Properties
         private Animator animator;
-        private KillableEnemy killableEnemy;
+        private KillableEntity killableEntity;
         private bool mustChaseHero;
         private new Rigidbody2D rigidbody2D;
         private SpriteRenderer spriteRenderer;
@@ -36,12 +36,12 @@ namespace Assets.Scripts.Shared.Enemy
         {
             const float ChasedDistance = 1.0f;
 
-            if (killableEnemy.IsDead())
+            if (killableEntity.IsDead())
                 return;
 
             mustChaseHero = true;
 
-            await new WaitUntil(() => HeroIsChased() || killableEnemy.IsDead());
+            await new WaitUntil(() => HeroIsChased() || killableEntity.IsDead());
 
             mustChaseHero = false;
 
@@ -81,7 +81,7 @@ namespace Assets.Scripts.Shared.Enemy
         private void InitializeProperties()
         {
             animator = GetComponent<Animator>();
-            killableEnemy = GetComponent<KillableEnemy>();
+            killableEntity = GetComponent<KillableEntity>();
             mustChaseHero = false;
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();

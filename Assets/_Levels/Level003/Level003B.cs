@@ -12,6 +12,7 @@ namespace Assets._Levels.Level003
             Hero.MoveRight();
             Hero.MoveRight();
             Hero.MoveRight();
+            Hero.MoveRight();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Shared.Level.InstructionWriters
                 throw new ArgumentException("Invalid number of movements!");
 
             for (int i = 0; i < movements; i++)
-                instructions.Enqueue(HeroMoveDownLevelInstructionStrategy.Instruction);
+                instructions.Enqueue(HeroMoveDownInstructionStrategy.GetFormattedInstruction());
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Shared.Level.InstructionWriters
                 throw new ArgumentException("Invalid number of movements!");
 
             for (int i = 0; i < movements; i++)
-                instructions.Enqueue(HeroMoveLeftLevelInstructionStrategy.Instruction);
+                instructions.Enqueue(HeroMoveLeftInstructionStrategy.GetFormattedInstruction());
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Shared.Level.InstructionWriters
                 throw new ArgumentException("Invalid number of movements!");
 
             for (int i = 0; i < movements; i++)
-                instructions.Enqueue(HeroMoveRightLevelInstructionStrategy.Instruction);
+                instructions.Enqueue(HeroMoveRightInstructionStrategy.GetFormattedInstruction());
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Assets.Scripts.Shared.Level.InstructionWriters
                 throw new ArgumentException("Invalid number of movements!");
 
             for (int i = 0; i < movements; i++)
-                instructions.Enqueue(HeroMoveUpLevelInstructionStrategy.Instruction);
+                instructions.Enqueue(HeroMoveUpInstructionStrategy.GetFormattedInstruction());
         }
     }
 }

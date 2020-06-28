@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Constants.Hero;
 using Assets.Scripts.Shared.Enemy;
-using Assets.Scripts.Shared.Hero;
 using Assets.Scripts.Shared.Level.InstructionStrategies;
 using Asyncoroutine;
 using System.Collections.Generic;
@@ -20,7 +19,6 @@ namespace Assets.Scripts.Shared.Level
         private Animator heroAnimator;
         private Queue<string> instructions;
         private KillableEnemy[] killableEnemyActors;
-        private List<InstructionStrategy> levelInstructionStrategies;
         private VictoryChecker victoryChecker;
         #endregion
 
@@ -51,12 +49,12 @@ namespace Assets.Scripts.Shared.Level
             while (instructions.Count > 0)
             {
                 var instruction = instructions.Dequeue();
-                var levelInstructionStrategy = levelInstructionStrategies
+                var instructionStrategy = InstructionStrategy.GetStrategies(Hero)
                     .First(strategy => strategy.IsApplicable(instruction));
 
-                Debug.Log(levelInstructionStrategy.GetLogMessage());
+                Debug.Log(instructionStrategy.GetLogMessage(instruction));
 
-                await levelInstructionStrategy.ExecuteInstruction(instruction);
+                await instructionStrategy.ExecuteInstruction(instruction);
             }
         }
 
@@ -64,17 +62,8 @@ namespace Assets.Scripts.Shared.Level
         {
             heroAnimator = Hero.GetComponent<Animator>();
             instructions = GetComponent<InstructionCompiler>().GetInstructions();
-            killableEnemyActors = GameObject.FindObjectsOfType<KillableEnemy>();
+            killableEnemyActors = FindObjectsOfType<KillableEnemy>();
             victoryChecker = GetComponent<VictoryChecker>();
-
-            var heroCheckpointSeeker = Hero.GetComponent<CheckpointSeeker>();
-            levelInstructionStrategies = new List<InstructionStrategy>
-            {
-                new HeroMoveDownLevelInstructionStrategy(heroCheckpointSeeker),
-                new HeroMoveLeftLevelInstructionStrategy(heroCheckpointSeeker),
-                new HeroMoveRightLevelInstructionStrategy(heroCheckpointSeeker),
-                new HeroMoveUpLevelInstructionStrategy(heroCheckpointSeeker)
-            };
         }
 
         private void KillAllEnemies()

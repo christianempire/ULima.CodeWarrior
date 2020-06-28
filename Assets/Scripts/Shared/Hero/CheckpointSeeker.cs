@@ -45,15 +45,24 @@ namespace Assets.Scripts.Shared.Hero
 
         public async Task SeekCheckpointAsync(CheckpointDirection direction)
         {
+            mustSeekCheckpointPosition = true;
+
+            if (!IsInCheckpointPosition() && !killableHero.IsDead())
+            {
+                await new WaitUntil(() => IsInCheckpointPosition() || killableHero.IsDead());
+            }
+
             var oldSeekingCheckpointPosition = seekingCheckpointPosition;
             var newSeekingCheckpointPosition = CheckpointDirectionStrategy.GetStrategies()
                 .First(strategy => strategy.IsApplicable(direction))
                 .GetClosestCheckpointPosition(seekingCheckpointPosition, checkpointPositions);
 
             if (!newSeekingCheckpointPosition.HasValue)
+            {
+                mustSeekCheckpointPosition = false;
                 return;
+            }
 
-            mustSeekCheckpointPosition = true;
             seekingCheckpointPosition = newSeekingCheckpointPosition.Value;
 
             var distanceToCheckpoint = Vector2.Distance(positionableEntity.GetPosition(), newSeekingCheckpointPosition.Value);

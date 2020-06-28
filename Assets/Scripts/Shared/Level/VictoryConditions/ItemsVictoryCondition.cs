@@ -1,19 +1,16 @@
 ﻿using Assets.Scripts.Constants;
 using Assets.Scripts.Shared.Hero;
-using Assets.Scripts.Shared.Level;
-using Asyncoroutine;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Level003
+namespace Assets.Scripts.Shared.Level.VictoryConditions
 {
-    public class Level003BVictoryChecker : VictoryChecker
+    public class ItemsVictoryCondition : VictoryCondition
     {
         public GameObject Hero;
 
         #region Properties
         private ItemPicker heroItemPicker;
-        private KillableHero killableHero;
         private int totalItems;
         #endregion
 
@@ -22,22 +19,12 @@ namespace Assets.Scripts.Level003
             InitializeProperties();
         }
 
-        public override async Task<bool> IsVictoryAchievedAsync()
-        {
-            const float StayAliveTime = 2.0f;
-
-            await new WaitForSeconds(StayAliveTime);
-
-            return HasCollectedAllItems() && !killableHero.IsDead();
-
-            bool HasCollectedAllItems() => heroItemPicker.ItemsCount == totalItems;
-        }
+        public override async Task<bool> IsMetAsync() => await Task.FromResult(heroItemPicker.ItemsCount == totalItems);
 
         #region Helpers
         private void InitializeProperties()
         {
             heroItemPicker = Hero.GetComponent<ItemPicker>();
-            killableHero = Hero.GetComponent<KillableHero>();
             totalItems = GameObject.FindGameObjectsWithTag(TagConstants.ItemTag).Length;
         }
         #endregion

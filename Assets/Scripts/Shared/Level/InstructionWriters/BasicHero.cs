@@ -15,21 +15,21 @@ namespace Assets.Scripts.Shared.Level.InstructionWriters
         /// <summary>
         /// Order your hero to go down.
         /// </summary>
-        public void MoveDown() => instructions.Enqueue(HeroMoveDownLevelInstructionStrategy.Instruction);
+        public void MoveDown() => instructions.Enqueue(HeroMoveDownInstructionStrategy.GetFormattedInstruction());
 
         /// <summary>
         /// Order your hero to go left.
         /// </summary>
-        public void MoveLeft() => instructions.Enqueue(HeroMoveLeftLevelInstructionStrategy.Instruction);
+        public void MoveLeft() => instructions.Enqueue(HeroMoveLeftInstructionStrategy.GetFormattedInstruction());
 
         /// <summary>
         /// Order your hero to go right.
         /// </summary>
-        public void MoveRight() => instructions.Enqueue(HeroMoveRightLevelInstructionStrategy.Instruction);
+        public void MoveRight() => instructions.Enqueue(HeroMoveRightInstructionStrategy.GetFormattedInstruction());
 
         /// <summary>
         /// Order your hero to go up.
         /// </summary>
-        public void MoveUp() => instructions.Enqueue(HeroMoveUpLevelInstructionStrategy.Instruction);
+        public void MoveUp() => instructions.Enqueue(HeroMoveUpInstructionStrategy.GetFormattedInstruction());
     }
 }

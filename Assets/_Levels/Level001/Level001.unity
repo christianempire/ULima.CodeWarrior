@@ -169,6 +169,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &457950111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457950113}
+  - component: {fileID: 457950112}
+  - component: {fileID: 457950114}
+  m_Layer: 0
+  m_Name: VictoryConditions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &457950112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457950111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c9cf0a73cce6428c975ec8e60d412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hero: {fileID: 916300022}
+--- !u!4 &457950113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457950111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1514107115}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &457950114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457950111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f0fa01369ab6144ad0e7f20bdcb035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hero: {fileID: 916300022}
+  CheckpointsTilemap: {fileID: 770294279}
 --- !u!1 &665282538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3567,7 +3626,7 @@ Tilemap:
       - {fileID: 21300000, guid: f7358eddbaf4a664bb9c96a9b327c1eb, type: 3}
       - {fileID: 21300000, guid: 8c07dda2aff21e040ba19d27f32bd86d, type: 3}
       - {fileID: 21300000, guid: fa3b55d421cb9584498dec7d7e6093bd, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -4, y: 2, z: 0}
@@ -6038,8 +6097,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1514107115}
   - component: {fileID: 1514107114}
-  - component: {fileID: 1514107113}
   - component: {fileID: 1514107112}
+  - component: {fileID: 1514107113}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -6069,11 +6128,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1514107111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1a5f669364f84f942171824e44dc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 204c37a4122ebdb49a40bc2266e94f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckpointsTilemap: {fileID: 770294279}
-  Hero: {fileID: 916300022}
+  VictoryConditions: {fileID: 457950111}
 --- !u!114 &1514107114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6096,7 +6154,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 457950113}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
