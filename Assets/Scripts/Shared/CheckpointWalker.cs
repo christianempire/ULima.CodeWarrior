@@ -11,7 +11,7 @@ namespace Assets.Scripts.Shared
     [RequireComponent(typeof(PositionableEntity))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(SpriteRenderer))]
-    public abstract class Walker : MonoBehaviour
+    public abstract class CheckpointWalker : MonoBehaviour
     {
         public Tilemap CheckpointsTilemap;
 

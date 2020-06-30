@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.Level004
 {
-    public class Level004AWalker : Walker
+    public class Level004ACheckpointWalker : CheckpointWalker
     {
         protected override string GetAnimatorIsWalkingParameter() => IllusionAnimatorConstants.IsWalkingParameter;
 

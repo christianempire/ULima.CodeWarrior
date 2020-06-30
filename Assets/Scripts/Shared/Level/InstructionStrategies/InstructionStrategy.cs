@@ -14,6 +14,7 @@ namespace Assets.Scripts.Shared.Level.InstructionStrategies
             new HeroMoveDownInstructionStrategy(hero),
             new HeroMoveLeftInstructionStrategy(hero),
             new HeroMoveRightInstructionStrategy(hero),
+            new HeroSayInstructionStrategy(hero),
             new HeroMoveUpInstructionStrategy(hero)
         };
 
