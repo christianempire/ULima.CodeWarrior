@@ -8,10 +8,7 @@ namespace Assets._Levels.Level003
         {
             // Avoid being seen by the enemy. Collect all the potions.
             Hero.MoveRight();
-            Hero.MoveUp();
-            Hero.MoveRight();
-            Hero.MoveDown();
-            Hero.MoveRight();
+
         }
     }
 }

@@ -22,12 +22,12 @@ namespace Assets.Scripts.Shared.Enemy
         private SpriteRenderer spriteRenderer;
         #endregion
 
-        void Awake()
+        public void Awake()
         {
             InitializeProperties();
         }
 
-        void Update()
+        public void Update()
         {
             closestHeroObjectPosition = GetClosestHeroObjectPosition();
 

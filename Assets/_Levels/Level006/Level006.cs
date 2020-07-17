@@ -8,8 +8,7 @@ namespace Assets._Levels.Level006
         {
             // Use the "Say()" function to say the password
             // The password is: "Achoo"
-            Hero.Say("Achoo");
-            Hero.MoveUp(3);
+            
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Shared.Hero;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Shared.Enemy
 {
@@ -14,8 +13,8 @@ namespace Assets.Scripts.Shared.Enemy
         private HeroAttacker heroAttacker;
         private HeroChaser heroChaser;
         private HeroLocator heroLocator;
-        private KillableEnemy killableEnemy;
-        private KillableHero killableHero;
+        private KillableEntity killableEnemy;
+        private KillableEntity killableHero;
         #endregion
 
         async void Start()
@@ -37,8 +36,8 @@ namespace Assets.Scripts.Shared.Enemy
             heroAttacker = GetComponent<HeroAttacker>();
             heroChaser = GetComponent<HeroChaser>();
             heroLocator = GetComponent<HeroLocator>();
-            killableEnemy = GetComponent<KillableEnemy>();
-            killableHero = Hero.GetComponent<KillableHero>();
+            killableEnemy = GetComponent<KillableEntity>();
+            killableHero = Hero.GetComponent<KillableEntity>();
         }
         #endregion
     }

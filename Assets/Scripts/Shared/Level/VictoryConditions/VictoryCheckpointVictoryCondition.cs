@@ -16,7 +16,7 @@ namespace Assets.Scripts.Shared.Level.VictoryConditions
         private Vector2 victoryCheckpointPosition;
         #endregion
 
-        void Awake()
+        public void Awake()
         {
             InitializeProperties();
         }

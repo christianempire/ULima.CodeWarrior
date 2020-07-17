@@ -9,12 +9,7 @@ namespace Assets._Levels.Level005
         {
             // Defeat the enemies.
             // Remember that they each take two hits.
-            Hero.Attack("Gurt");
-            Hero.Attack("Gurt");
-            Hero.Attack("Rig");
-            Hero.Attack("Rig");
-            Hero.Attack("Ack");
-            Hero.Attack("Ack");
+            
         }
     }
 }

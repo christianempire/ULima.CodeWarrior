@@ -14,7 +14,7 @@ namespace Assets.Scripts.Shared.Level.VictoryConditions
         private int totalItems;
         #endregion
 
-        void Awake()
+        public void Awake()
         {
             InitializeProperties();
         }

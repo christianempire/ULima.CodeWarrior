@@ -16,7 +16,7 @@ namespace Assets.Scripts.Shared.Level.VictoryConditions
         private KillableEntity heroKillableEntity;
         #endregion
 
-        void Awake()
+        public void Awake()
         {
             InitializeProperties();
         }
