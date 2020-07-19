@@ -12,6 +12,10 @@ namespace Assets.Scripts.Level003
 
             patrollingDirections.Enqueue(CheckpointDirection.Right);
             patrollingDirections.Enqueue(CheckpointDirection.Right);
+            patrollingDirections.Enqueue(CheckpointDirection.Right);
+            patrollingDirections.Enqueue(CheckpointDirection.Right);
+            patrollingDirections.Enqueue(CheckpointDirection.Left);
+            patrollingDirections.Enqueue(CheckpointDirection.Left);
             patrollingDirections.Enqueue(CheckpointDirection.Left);
             patrollingDirections.Enqueue(CheckpointDirection.Left);
 

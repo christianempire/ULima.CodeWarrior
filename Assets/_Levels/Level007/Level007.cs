@@ -6,12 +6,10 @@ namespace Assets._Levels.Level007
     {
         public override void Main()
         {
-            // Free the prisoner, defeat the enemy and grab the potion
+            // Free the prisoner behind the guard
 
-            // Free the prisoner behind the "Weak Guard"
-            
             // Defeat the enemy, named "Two"
-            
+
             // Get the potion
 
         }

@@ -20,9 +20,9 @@ namespace Assets.Scripts.Shared.Level
         protected int GetPerceivedDifficulty()
         {
             var levelVariablesObject = GetLevelVariablesObject();
-            var normalizedLevelDuration = GetNormalizedLevelDuration(levelVariablesObject.LevelDuration);
-            var normalizedCodeLinesCount = GetNormalizedCodeLinesCount(levelVariablesObject.CodeLinesCount);
-            var normalizedFailedExecutionsCount = GetNormalizedFailedExecutionsCount(levelVariablesObject.FailedExecutionsCount);
+            var normalizedLevelDuration = LevelVariablesNormalizer.GetNormalizedLevelDuration(levelVariablesObject.LevelDuration);
+            var normalizedCodeLinesCount = LevelVariablesNormalizer.GetNormalizedCodeLinesCount(levelVariablesObject.CodeLinesCount);
+            var normalizedFailedExecutionsCount = LevelVariablesNormalizer.GetNormalizedFailedExecutionsCount(levelVariablesObject.FailedExecutionsCount);
 
             return Mathf.RoundToInt((normalizedLevelDuration + normalizedCodeLinesCount + normalizedFailedExecutionsCount) / 3.0f);
         }
@@ -59,36 +59,6 @@ namespace Assets.Scripts.Shared.Level
             var levelDurationTimeSpan = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - SaveManager.Instance.Load().LastLevelCompletionTime);
 
             return levelDurationTimeSpan.TotalSeconds;
-        }
-
-        private int GetNormalizedLevelDuration(double levelDuration)
-        {
-            if (levelDuration < 120)
-                return 2;
-            else if (levelDuration < 240)
-                return 5;
-            else
-                return 10;
-        }
-
-        private int GetNormalizedCodeLinesCount(int codeLinesCount)
-        {
-            if (codeLinesCount < 20)
-                return 2;
-            else if (codeLinesCount < 30)
-                return 5;
-            else
-                return 10;
-        }
-
-        private int GetNormalizedFailedExecutionsCount(int failedExecutionsCount)
-        {
-            if (failedExecutionsCount < 2)
-                return 2;
-            else if (failedExecutionsCount < 5)
-                return 5;
-            else
-                return 10;
         }
         #endregion
     }

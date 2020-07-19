@@ -19,10 +19,10 @@ namespace Assets.Scripts.Level004
         {
             var perceivedDifficulty = GetPerceivedDifficulty();
 
-            if (perceivedDifficulty > 5)
-                return "400B";
-            else
+            if (perceivedDifficulty <= 3)
                 return "005";
+            else
+                return "004B";
         }
 
         public override void SaveLevelVariables()

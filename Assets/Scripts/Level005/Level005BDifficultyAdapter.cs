@@ -17,7 +17,7 @@ namespace Assets.Scripts.Level005
 
         public override string GetNextRecommendedLevel()
         {
-            return "006";
+            return "007";
         }
 
         public override void SaveLevelVariables()

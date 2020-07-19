@@ -8,6 +8,7 @@ namespace Assets._Levels.Level005
         {
             // Attack both enemies and grab the potion
             Hero.MoveRight();
+            Hero.MoveRight();
             Hero.Attack("Krug");
             Hero.Attack("Krug");
 

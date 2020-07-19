@@ -9,6 +9,7 @@ namespace Assets._Levels.Level005
             // Defend against "Brak" and "Treg"!
             // You must attack enemies twice
             Hero.MoveRight();
+            Hero.MoveRight();
             Hero.Attack("Brak");
             Hero.Attack("Brak");
 

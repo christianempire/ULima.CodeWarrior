@@ -87,7 +87,7 @@ namespace Assets.Scripts.Shared.Enemy
                 .Select(position => new
                 {
                     Position = position,
-                    DistanceToPosition = Vector3.Distance(transform.position, position)
+                    DistanceToPosition = Vector3.Distance(positionableEntity.GetPosition(), position)
                 })
                 .OrderBy(positionInfo => positionInfo.DistanceToPosition)
                 .First()
