@@ -10,9 +10,15 @@ namespace Assets.Scripts.Level003
         {
             var patrollingDirections = new Queue<CheckpointDirection>();
 
+            patrollingDirections.Enqueue(CheckpointDirection.Right);
+            patrollingDirections.Enqueue(CheckpointDirection.Up);
             patrollingDirections.Enqueue(CheckpointDirection.Up);
             patrollingDirections.Enqueue(CheckpointDirection.Left);
+            patrollingDirections.Enqueue(CheckpointDirection.Left);
+            patrollingDirections.Enqueue(CheckpointDirection.Left);
             patrollingDirections.Enqueue(CheckpointDirection.Down);
+            patrollingDirections.Enqueue(CheckpointDirection.Down);
+            patrollingDirections.Enqueue(CheckpointDirection.Right);
             patrollingDirections.Enqueue(CheckpointDirection.Right);
 
             return patrollingDirections;

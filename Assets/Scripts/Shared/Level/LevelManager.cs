@@ -16,12 +16,14 @@ namespace Assets.Scripts.Shared.Level
     public class LevelManager : MonoBehaviour
     {
         public GameObject Hero;
+        public GameObject UI;
 
         #region Properties
         private DifficultyAdapter difficultyAdapter;
         private Animator heroAnimator;
         private Queue<string> instructions;
         private KillableEnemy[] killableEnemyActors;
+        private UIManager uIManager;
         private VictoryChecker victoryChecker;
         #endregion
 
@@ -35,20 +37,36 @@ namespace Assets.Scripts.Shared.Level
             if (await victoryChecker.IsVictoryAchievedAsync())
             {
                 KillAllEnemies();
-                UpdateSaveFile();
-
+                
                 difficultyAdapter.SaveLevelVariables();
+                UpdateLastLevelCompletionTime();
 
                 heroAnimator.SetBool(HeroAnimatorConstants.IsWinningParameter, true);
-                Debug.Log("Victory!");
-                Debug.Log($"Proceed to Level {difficultyAdapter.GetNextRecommendedLevel()}");
+
+                var nextRecommendedLevel = difficultyAdapter.GetNextRecommendedLevel();
+
+                if (!string.IsNullOrEmpty(nextRecommendedLevel))
+                {
+                    Debug.Log("Victory!");
+                    Debug.Log($"Proceed to Level {difficultyAdapter.GetNextRecommendedLevel()}");
+
+                    uIManager.ShowVictoryPanel(nextRecommendedLevel);
+                }
+                else
+                {
+                    Debug.Log("Game Over");
+                    uIManager.ShowThanksForPlayingPanel();
+                }
+                
             }
             else
             {
+                difficultyAdapter.CountFailedExecution();
+
                 heroAnimator.SetBool(HeroAnimatorConstants.IsDizzyParameter, true);
                 Debug.LogError("Try again");
 
-                difficultyAdapter.CountFailedExecution();
+                uIManager.ShowTryAgainPanel();
             }
         }
 
@@ -73,6 +91,7 @@ namespace Assets.Scripts.Shared.Level
             heroAnimator = Hero.GetComponent<Animator>();
             instructions = GetComponent<InstructionCompiler>().GetInstructions();
             killableEnemyActors = FindObjectsOfType<KillableEnemy>();
+            uIManager = UI.GetComponent<UIManager>();
             victoryChecker = GetComponent<VictoryChecker>();
         }
 
@@ -82,7 +101,7 @@ namespace Assets.Scripts.Shared.Level
                 killableEnemyActor.Kill();
         }
 
-        private void UpdateSaveFile()
+        private void UpdateLastLevelCompletionTime()
         {
             var saveObject = SaveManager.Instance.Load();
 

@@ -8,7 +8,6 @@ namespace Assets._Levels.Level002
         {
             // Grab all the potions using your movement commands.
             Hero.MoveRight();
-
         }
     }
 }
