@@ -7,7 +7,7 @@ namespace Assets._Levels.Level003
         public override void Main()
         {
             // Avoid the enemies and grab the potion.
-            
+
         }
     }
 }

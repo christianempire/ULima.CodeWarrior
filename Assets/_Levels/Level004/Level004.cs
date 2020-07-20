@@ -7,6 +7,7 @@ namespace Assets._Levels.Level004
         public override void Main()
         {
             // Use arguments with move statements to move faster
+            Hero.MoveRight(4);
             
         }
     }
